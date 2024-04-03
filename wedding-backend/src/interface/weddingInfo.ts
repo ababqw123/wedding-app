@@ -1,5 +1,5 @@
-export interface CompanyInfo {
-  _id: string,
+export interface WeddingInfo {
+  id: string,
   date: string,
   people: {
     groomName: String,

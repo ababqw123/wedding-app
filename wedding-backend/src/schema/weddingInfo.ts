@@ -1,6 +1,6 @@
 import * as mongoose from 'mongoose';
 
-export const UserInfoSchema = new mongoose.Schema({
+export const WeddingInfoSchema = new mongoose.Schema({
   date: { type: String, required: true },
   people: {
     type: {

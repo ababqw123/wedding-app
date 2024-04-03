@@ -5,12 +5,10 @@ import { CompanyService } from 'src/service/company.service';
 export class CompanyController {
   constructor(private readonly companyService: CompanyService) {}
 
-  @Get()
+  @Get('/getAllCompany')
   async getTest() {
-    console.log('1');
-    await this.companyService.postCompany()
+    // await this.companyService.postCompany()
     const company = await this.companyService.getCompany();
-
-    console.log(company);
+    return company
   }
 }

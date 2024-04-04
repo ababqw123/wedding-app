@@ -3,9 +3,9 @@ FROM node:14 AS build
 WORKDIR /app
 
 COPY package.json .
-COPY package-lock.json .
+COPY yarn.lock .
 
-RUN yarn 
+RUN yarn install
 
 COPY . .
 

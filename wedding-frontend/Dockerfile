@@ -14,8 +14,7 @@ RUN yarn build
 ############################################
 
 FROM nginx:1.21.4-alpine 
-RUN rm -rf /etc/nginx/conf.d
-COPY conf /etc/nginx
+COPY nginx.conf /etc/nginx/conf.d/default.conf.template
 
 COPY --from=build /app/.next /usr/share/nginx/html
 

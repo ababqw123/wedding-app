@@ -7,14 +7,13 @@ COPY yarn.lock .
 
 RUN yarn install --frozen-lockfile
 
-COPY . /app
+COPY . .
 
 RUN yarn build
 
 ############################################
 
 FROM nginx:1.21.4-alpine 
-COPY nginx.conf /etc/nginx/conf.d/default.conf.template
 
 COPY --from=build /app/dist /usr/share/nginx/html
 

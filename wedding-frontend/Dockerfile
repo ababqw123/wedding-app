@@ -7,18 +7,15 @@ COPY package-lock.json .
 
 RUN yarn 
 
-COPY . /app
+COPY . .
 
 RUN yarn build
 
 ############################################
 
 FROM nginx:1.21.4-alpine 
-COPY nginx.conf /etc/nginx/conf.d/default.conf.template
 
 COPY --from=build /app/.next /usr/share/nginx/html
-
-# COPY nginx.conf /etc/nginx/conf.d/default.conf.template
 
 EXPOSE 3000
 

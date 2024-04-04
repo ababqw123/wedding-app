@@ -71,7 +71,7 @@ export default function Wedding({
   wedding,
 }: {
   company: Array<{
-    id: string;
+    _id: string;
     name: string;
     addr: string;
     phone: string;
@@ -83,7 +83,7 @@ export default function Wedding({
     }>;
   }>;
   wedding: Array<{
-    id: string;
+    _id: string;
     date: Dayjs;
     time: string;
     company: string;
@@ -111,7 +111,7 @@ export default function Wedding({
 
   const [weddingData, setWeddingData] = useState<
     Array<{
-      id: string;
+      _id: string;
       date: Dayjs;
       time: string;
       company: string;
@@ -141,7 +141,7 @@ export default function Wedding({
   useEffect(() => {
     if (company != undefined) {
       const list = company.map((it) => {
-        return { companyName: it.name, companyId: it.id };
+        return { companyName: it.name, companyId: it._id };
       });
       setCompanyList(list || []);
     }
@@ -232,7 +232,7 @@ export default function Wedding({
                     key={i}
                     sx={{ backgroundColor: (i + 1) % 2 !== 0 ? "#f2f2f2" : "none" }}
                     onClick={() => {
-                      setCopyId(it.id);
+                      setCopyId(it._id);
                       setModal(true);
                     }}
                   >
@@ -393,7 +393,7 @@ export default function Wedding({
 export const getStaticProps: GetStaticProps = async (context) => {
   try {
     const company = await (await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/company/getAllCompany`)).json();
-    const wedding = await (await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/company/findWedding?${new URLSearchParams({}).toString()}`)).json();
+    const wedding = await (await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/company/findAllWedding`)).json();
 
     return {
       props: {

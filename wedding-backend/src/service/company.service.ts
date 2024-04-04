@@ -20,19 +20,25 @@ export class CompanyService {
     return await this.weddingModel.find().exec();
   }
 
+  async getFindWedding(id: string) {
+    return await this.weddingModel.findOne({ _id: id });
+  }
+
   async postCompany() {
     const testCompany = {
       name: '회사 4호점',
       addr: '대구 서구 평리로 221',
       phone: '010-1111-2121',
-      hallList: [{
-        name: '1관',
-        floor: 2,
-        size: 'SMALL'
-      }]
-    }
+      hallList: [
+        {
+          name: '1관',
+          floor: 2,
+          size: 'SMALL',
+        },
+      ],
+    };
 
-    const createCompany = new this.companyModel(testCompany)
+    const createCompany = new this.companyModel(testCompany);
     return await createCompany.save();
   }
 }

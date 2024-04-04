@@ -7,7 +7,7 @@ COPY yarn.lock .
 
 RUN yarn install --frozen-lockfile
 
-COPY . .
+COPY . /app
 
 RUN yarn build
 

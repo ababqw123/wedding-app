@@ -30,8 +30,8 @@ export default function Invitation({
   wedding,
   company,
 }: {
-  wedding: Array<{
-    id: string;
+  wedding: {
+    _id: string;
     date: Dayjs;
     time: string;
     company: string;
@@ -44,9 +44,9 @@ export default function Invitation({
       brideFather: string;
       brideMothrt: string;
     };
-  }>;
+  };
   company: {
-    id: string;
+    _id: string;
     name: string;
     addr: string;
     phone: string;
@@ -62,7 +62,7 @@ export default function Invitation({
   const router = useRouter();
   const [token, setToken] = useState<string>("");
   const [data, setData] = useState<{
-    id: string;
+    _id: string;
     date: Dayjs;
     time: string;
     company: string;
@@ -76,7 +76,7 @@ export default function Invitation({
       brideMothrt: string;
     };
   }>({
-    id: "",
+    _id: "",
     date: dayjs(`${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`),
     time: "",
     company: "",
@@ -91,7 +91,7 @@ export default function Invitation({
     },
   });
   const [companyData, setCompanyData] = useState<{
-    id: string;
+    _id: string;
     name: string;
     addr: string;
     phone: string;
@@ -101,7 +101,7 @@ export default function Invitation({
       floor: number;
       size: string;
     }>;
-  }>({ id: "", name: "", addr: "", phone: "", hallList: [] });
+  }>({ _id: "", name: "", addr: "", phone: "", hallList: [] });
 
   const [groomVisible, setGroomVisible] = useState(false);
   const [brideVisible, setBrideVisible] = useState(false);
@@ -123,7 +123,7 @@ export default function Invitation({
   }, []);
 
   useEffect(() => {
-    setData(wedding[0]);
+    setData(wedding);
   }, [wedding]);
 
   useEffect(() => {
@@ -494,9 +494,9 @@ export default function Invitation({
 
 export const getStaticPaths: GetStaticPaths = async (context) => {
   try {
-    const wedding = await (await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/company/findWedding?${new URLSearchParams({}).toString()}`)).json();
+    const wedding = await (await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/company/findAllWedding`)).json();
     const possibleTokenValues: Array<string> = wedding.map((it: any) => {
-      return it.id;
+      return it._id;
     }); // 가능한 토큰 값들로 대체해야 합니다.
 
     const paths = possibleTokenValues.map((token) => ({
@@ -508,7 +508,7 @@ export const getStaticPaths: GetStaticPaths = async (context) => {
       fallback: false, // fallback이 false이면 존재하지 않는 경로로의 접근은 404 페이지를 반환합니다.
     };
   } catch (error) {
-    console.error(error);
+    // console.error(error);
     return {
       paths: [],
       fallback: false,
@@ -520,7 +520,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   const token = (params?.token as string) || ("" as string);
   try {
     const company: Array<{
-      id: string;
+      _id: string;
       name: string;
       addr: string;
       phone: string;
@@ -531,8 +531,8 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
         size: string;
       }>;
     }> = await (await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/company/getAllCompany`)).json();
-    const wedding: Array<{
-      id: string;
+    const wedding: {
+      _id: string;
       date: Dayjs;
       time: string;
       company: string;
@@ -545,7 +545,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
         brideFather: string;
         brideMothrt: string;
       };
-    }> = await (
+    } = await (
       await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/company/findWedding`, {
         method: "POST",
         body: JSON.stringify({ id: token }),
@@ -554,7 +554,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
         },
       })
     ).json();
-    const filterCompany = company.find((it) => it.id === wedding[0].company);
+    const filterCompany = company.find((it) => it._id === wedding.company);
     return {
       props: {
         wedding,

@@ -555,6 +555,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       })
     ).json();
     const filterCompany = company.find((it) => it._id === wedding.company);
+    console.log("/////////////////////////////////////////////");
     return {
       props: {
         wedding,

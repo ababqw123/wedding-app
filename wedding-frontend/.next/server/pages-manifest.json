@@ -2,8 +2,8 @@
   "/_app": "pages/_app.js",
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
-  "/admin/wedding": "pages/admin/wedding.js",
-  "/admin": "pages/admin.js",
   "/admin/company": "pages/admin/company.js",
-  "/invitation/[token]": "pages/invitation/[token].js"
+  "/admin": "pages/admin.js",
+  "/admin/wedding": "pages/admin/wedding.js",
+  "/": "pages/index.js"
 }

@@ -50,7 +50,7 @@ export default function Company({
   company,
 }: {
   company: Array<{
-    id: string;
+    _id: string;
     name: string;
     addr: string;
     phone: string;
@@ -66,7 +66,7 @@ export default function Company({
 
   const [companyData, setCompanyData] = useState<
     Array<{
-      id: string;
+      _id: string;
       name: string;
       addr: string;
       phone: string;
@@ -90,7 +90,7 @@ export default function Company({
   });
 
   const [editCompany, setEditCompany] = useState<{
-    id: string;
+    _id: string;
     name: string;
     addr: string;
     phone: string;
@@ -101,7 +101,7 @@ export default function Company({
       size: string;
     }>;
   }>({
-    id: "",
+    _id: "",
     name: "",
     addr: "",
     phone: "",
@@ -173,7 +173,7 @@ export default function Company({
                     sx={{ backgroundColor: (i + 1) % 2 !== 0 ? "#f2f2f2" : "none", cursor: "pointer" }}
                     onClick={() => {
                       setEditCompany({
-                        id: company.id,
+                        _id: company._id,
                         name: company.name,
                         addr: company.addr,
                         phone: company.phone,
@@ -420,8 +420,17 @@ export default function Company({
                     color: "white",
                     fontSize: 15,
                   }}
-                  onClick={() => {
+                  onClick={async () => {
                     console.log(editCompany);
+                    await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/company/editCompanyInfo`, {
+                      method: "PUT",
+                      body: JSON.stringify(editCompany),
+                      headers: {
+                        "Content-Type": "application/json",
+                      },
+                    });
+                    refreshData();
+                    editModalClose();
                   }}
                 >
                   수정
@@ -452,7 +461,6 @@ export default function Company({
 
 export const getStaticProps: GetStaticProps = async (context) => {
   try {
-    console.log(process.env.NEXT_PUBLIC_SERVER_URL);
     const company = await (await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/company/getAllCompany`)).json();
     return {
       props: {

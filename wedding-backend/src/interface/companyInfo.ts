@@ -1,11 +1,12 @@
 export interface CompanyInfo {
-  id: string,
-  name: string,
-  phone: string,
+  _id: string;
+  name: string;
+  addr: string;
+  phone: string;
   hallList: Array<{
-    id: string
-    name: string,
-    floor: number,
-    size: string
-  }>
+    _id: string;
+    name: string;
+    floor: number;
+    size: string;
+  }>;
 }

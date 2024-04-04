@@ -25,8 +25,8 @@ import { GetStaticPaths, GetStaticProps } from "next";
 export default function Register({
   wedding,
 }: {
-  wedding: Array<{
-    id: string;
+  wedding: {
+    _id: string;
     date: Dayjs;
     time: string;
     company: string;
@@ -39,7 +39,7 @@ export default function Register({
       brideFather: string;
       brideMothrt: string;
     };
-  }>;
+  };
 }) {
   const router = useRouter();
   const [modal, setModal] = useState<boolean>(false);
@@ -84,8 +84,8 @@ export default function Register({
 
   useEffect(() => {
     setPeople({
-      groom: wedding[0].people.groomName,
-      bride: wedding[0].people.brideName,
+      groom: wedding.people.groomName,
+      bride: wedding.people.brideName,
     });
   }, [wedding]);
 
@@ -262,19 +262,17 @@ export const getStaticPaths: GetStaticPaths = async (context) => {
   try {
     const wedding = await (await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/company/findAllWedding`)).json();
     const possibleTokenValues: Array<string> = wedding.map((it: any) => {
-      return it.id;
+      return it._id;
     }); // 가능한 토큰 값들로 대체해야 합니다.
-
     const paths = possibleTokenValues.map((token) => ({
       params: { token },
     }));
-
     return {
       paths,
       fallback: false, // fallback이 false이면 존재하지 않는 경로로의 접근은 404 페이지를 반환합니다.
     };
   } catch (error) {
-    console.error(error);
+    // console.error(error);
     return {
       paths: [],
       fallback: false,
@@ -285,8 +283,8 @@ export const getStaticPaths: GetStaticPaths = async (context) => {
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const token = (params?.token as string) || ("" as string);
   try {
-    const wedding: Array<{
-      id: string;
+    const wedding: {
+      _id: string;
       date: Dayjs;
       time: string;
       company: string;
@@ -299,7 +297,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
         brideFather: string;
         brideMothrt: string;
       };
-    }> = await (
+    } = await (
       await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/company/findWedding`, {
         method: "POST",
         body: JSON.stringify({ id: token }),

@@ -24,21 +24,21 @@ export class CompanyService {
     return await this.weddingModel.findOne({ _id: id });
   }
 
-  async postCompany() {
-    const testCompany = {
-      name: '회사 4호점',
-      addr: '대구 서구 평리로 221',
-      phone: '010-1111-2121',
-      hallList: [
-        {
-          name: '1관',
-          floor: 2,
-          size: 'SMALL',
-        },
-      ],
-    };
+  async postCompany(company: CompanyInfo) {
+    return await new this.companyModel(company).save();
+  }
 
-    const createCompany = new this.companyModel(testCompany);
-    return await createCompany.save();
+  async putCompany(company: CompanyInfo) {
+    return await this.companyModel.updateOne(
+      { _id: company._id },
+      {
+        $set: {
+          name: company.name,
+          phone: company.phone,
+          addr: company.addr,
+          hallList: company.hallList,
+        },
+      },
+    );
   }
 }

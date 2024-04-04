@@ -13,7 +13,7 @@ export class CompanyController {
   }
 
   @Get('/findAllWedding')
-  async getAllWedding(@Query() data: string) {
+  async getAllWedding() {
     const wedding = await this.companyService.getAllWedding();
     return wedding;
   }

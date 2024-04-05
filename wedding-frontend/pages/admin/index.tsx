@@ -68,12 +68,12 @@ export default function Hall({
   company,
 }: {
   company: Array<{
-    id: string;
+    _id: string;
     name: string;
     addr: string;
     phone: string;
     hallList: Array<{
-      order: number;
+      _id: string;
       name: string;
       floor: number;
       size: string;
@@ -91,7 +91,7 @@ export default function Hall({
   const [halls, setHalls] = useState<
     Array<{
       companyId: string;
-      order: number;
+      _id: string;
       name: string;
       floor: number;
       size: string;
@@ -111,13 +111,13 @@ export default function Hall({
   });
 
   const [editHall, setEditHall] = useState<{
-    order: number;
+    _id: string;
     companyId: string;
     name: string;
     size: string;
     floor: number;
   }>({
-    order: 0,
+    _id: "",
     companyId: "",
     name: "",
     size: "",
@@ -146,7 +146,7 @@ export default function Hall({
   useEffect(() => {
     if (company != undefined) {
       const list = company.map((it) => {
-        return { companyName: it.name, companyId: it.id };
+        return { companyName: it.name, companyId: it._id };
       });
       setCompanyList(list || []);
     }
@@ -159,17 +159,17 @@ export default function Hall({
       });
       const hallList: Array<{
         companyId: string;
-        order: number;
+        _id: string;
         name: string;
         floor: number;
         size: string;
       }> = [];
-      const companyId = hallValue[0].id;
+      const companyId = hallValue[0]._id;
       if (hallValue[0].hallList != null) {
         hallValue[0].hallList.forEach((it) => {
           hallList.push({
             companyId: companyId,
-            order: it.order,
+            _id: it._id,
             name: it.name,
             floor: it.floor,
             size: it.size,
@@ -249,7 +249,7 @@ export default function Hall({
                     onClick={() => {
                       setEditHall({
                         companyId: hall.companyId,
-                        order: hall.order,
+                        _id: hall._id,
                         name: hall.name,
                         size: hall.size,
                         floor: hall.floor,
@@ -547,8 +547,16 @@ export default function Hall({
                     color: "white",
                     fontSize: 15,
                   }}
-                  onClick={() => {
-                    console.log(editHall);
+                  onClick={async () => {
+                    await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/company/editHall`, {
+                      method: "PUT",
+                      body: JSON.stringify(editHall),
+                      headers: {
+                        "Content-Type": "application/json",
+                      },
+                    });
+                    refreshData();
+                    editModalClose();
                   }}
                 >
                   수정
@@ -564,6 +572,17 @@ export default function Hall({
                     "&:hover": { backgroundColor: "red" },
                     color: "white",
                     fontSize: 15,
+                  }}
+                  onClick={async () => {
+                    await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/company/delHall`, {
+                      method: "DELETE",
+                      body: JSON.stringify(editHall),
+                      headers: {
+                        "Content-Type": "application/json",
+                      },
+                    });
+                    refreshData();
+                    editModalClose();
                   }}
                 >
                   삭제

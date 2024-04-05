@@ -91,10 +91,10 @@ export default function Wedding({
     people: {
       groomName: string;
       groomFather: string;
-      groomMothrt: string;
+      groomMother: string;
       brideName: string;
       brideFather: string;
-      brideMothrt: string;
+      brideMother: string;
     };
   }>;
 }) {
@@ -119,10 +119,10 @@ export default function Wedding({
       people: {
         groomName: string;
         groomFather: string;
-        groomMothrt: string;
+        groomMother: string;
         brideName: string;
         brideFather: string;
-        brideMothrt: string;
+        brideMother: string;
       };
     }>
   >([]);
@@ -173,6 +173,10 @@ export default function Wedding({
 
   const handleChange = (event: SelectChangeEvent) => {
     setCompanySelect(event.target.value as string);
+  };
+
+  const refreshData = () => {
+    router.replace(router.asPath);
   };
 
   return (
@@ -361,6 +365,17 @@ export default function Wedding({
                   "&:hover": { backgroundColor: "red" },
                   color: "white",
                   fontSize: 15,
+                }}
+                onClick={async () => {
+                  await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/company/delWeddingInfo`, {
+                    method: "DELETE",
+                    body: JSON.stringify({ id: copyId }),
+                    headers: {
+                      "Content-Type": "application/json",
+                    },
+                  });
+                  refreshData();
+                  modalClose();
                 }}
               >
                 삭제

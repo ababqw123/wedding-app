@@ -12,8 +12,8 @@ export default function EditWedding({
   wedding,
   company,
 }: {
-  wedding: Array<{
-    id: string;
+  wedding: {
+    _id: string;
     date: Dayjs;
     time: string;
     company: string;
@@ -21,19 +21,19 @@ export default function EditWedding({
     people: {
       groomName: string;
       groomFather: string;
-      groomMothrt: string;
+      groomMother: string;
       brideName: string;
       brideFather: string;
-      brideMothrt: string;
+      brideMother: string;
     };
-  }>;
+  };
   company: Array<{
-    id: string;
+    _id: string;
     name: string;
     addr: string;
     phone: string;
     hallList: Array<{
-      order: number;
+      _id: string;
       name: string;
       floor: number;
       size: string;
@@ -43,7 +43,7 @@ export default function EditWedding({
   const today = new Date();
   const router = useRouter();
   const [data, setData] = useState<{
-    id: string;
+    _id: string;
     date: Dayjs;
     time: string;
     company: string;
@@ -51,13 +51,13 @@ export default function EditWedding({
     people: {
       groomName: string;
       groomFather: string;
-      groomMothrt: string;
+      groomMother: string;
       brideName: string;
       brideFather: string;
-      brideMothrt: string;
+      brideMother: string;
     };
   }>({
-    id: "",
+    _id: "",
     date: dayjs(`${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`),
     time: "",
     company: "",
@@ -65,10 +65,10 @@ export default function EditWedding({
     people: {
       groomName: "",
       groomFather: "",
-      groomMothrt: "",
+      groomMother: "",
       brideName: "",
       brideFather: "",
-      brideMothrt: "",
+      brideMother: "",
     },
   });
 
@@ -81,7 +81,6 @@ export default function EditWedding({
   const [halls, setHalls] = useState<
     Array<{
       companyId: string;
-      order: number;
       name: string;
       floor: number;
       size: string;
@@ -89,22 +88,20 @@ export default function EditWedding({
   >([]);
 
   useEffect(() => {
-    const currentData = wedding[0];
-
     setData({
-      id: currentData.id,
-      date: dayjs(currentData.date),
-      time: dayjs(currentData.date).format("hh"),
-      company: currentData.company,
-      hall: currentData.hall,
-      people: currentData.people,
+      _id: wedding._id,
+      date: dayjs(wedding.date),
+      time: dayjs(wedding.date).format("hh"),
+      company: wedding.company,
+      hall: wedding.hall,
+      people: wedding.people,
     });
   }, [wedding]);
 
   useEffect(() => {
     if (company != undefined) {
       const list = company.map((it) => {
-        return { companyName: it.name, companyId: it.id };
+        return { companyName: it.name, companyId: it._id };
       });
       setCompanyList(list);
     }
@@ -122,21 +119,19 @@ export default function EditWedding({
   useEffect(() => {
     if (data.company !== "") {
       const hallValue = company.filter((it) => {
-        return it.id === data.company;
+        return it._id === data.company;
       });
       const hallList: Array<{
         companyId: string;
-        order: number;
         name: string;
         floor: number;
         size: string;
       }> = [];
-      const companyId = hallValue[0].id;
+      const companyId = hallValue[0]._id;
       if (hallValue[0].hallList != null) {
         hallValue[0].hallList.forEach((it) => {
           hallList.push({
             companyId: companyId,
-            order: it.order,
             name: it.name,
             floor: it.floor,
             size: it.size,
@@ -317,10 +312,10 @@ export default function EditWedding({
                   size="small"
                   type="string"
                   autoComplete="off"
-                  value={data.people.groomMothrt}
+                  value={data.people.groomMother}
                   onChange={(e) => {
                     const save = data.people;
-                    save.groomMothrt = e.target.value;
+                    save.groomMother = e.target.value;
 
                     setData((prevState) => ({
                       ...prevState,
@@ -469,10 +464,10 @@ export default function EditWedding({
                   size="small"
                   type="string"
                   autoComplete="off"
-                  value={data.people.brideMothrt}
+                  value={data.people.brideMother}
                   onChange={(e) => {
                     const save = data.people;
-                    save.brideMothrt = e.target.value;
+                    save.brideMother = e.target.value;
 
                     setData((prevState) => ({
                       ...prevState,
@@ -665,15 +660,15 @@ export default function EditWedding({
                 date: dayjs(date),
               }));
               const result = await (
-                await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/company/insertWedding`, {
-                  method: "POST",
+                await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/company/editWedding`, {
+                  method: "PUT",
                   body: JSON.stringify(data),
                   headers: {
                     "Content-Type": "application/json",
                   },
                 })
               ).json();
-              router.push(`/invitation/${result["id"]}`);
+              router.push(`/invitation/${result["_id"]}`);
             }}
           >
             수정하기
@@ -688,7 +683,7 @@ export const getStaticPaths: GetStaticPaths = async (context) => {
   try {
     const wedding = await (await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/company/findAllWedding`)).json();
     const possibleTokenValues: Array<string> = wedding.map((it: any) => {
-      return it.id;
+      return it._id;
     }); // 가능한 토큰 값들로 대체해야 합니다.
 
     const paths = possibleTokenValues.map((token) => ({
@@ -712,19 +707,19 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   const token = (params?.token as string) || ("" as string);
   try {
     const company: Array<{
-      id: string;
+      _id: string;
       name: string;
       addr: string;
       phone: string;
       hallList: Array<{
-        order: number;
+        _id: string;
         name: string;
         floor: number;
         size: string;
       }>;
     }> = await (await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/company/getAllCompany`)).json();
-    const wedding: Array<{
-      id: string;
+    const wedding: {
+      _id: string;
       date: Dayjs;
       time: string;
       company: string;
@@ -732,12 +727,12 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       people: {
         groomName: string;
         groomFather: string;
-        groomMothrt: string;
+        groomMother: string;
         brideName: string;
         brideFather: string;
-        brideMothrt: string;
+        brideMother: string;
       };
-    }> = await (
+    } = await (
       await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/company/findWedding`, {
         method: "POST",
         body: JSON.stringify({ id: token }),

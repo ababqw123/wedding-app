@@ -12,7 +12,7 @@ export default function AddWedding({
   company,
 }: {
   company: Array<{
-    id: string;
+    _id: string;
     name: string;
     addr: string;
     phone: string;
@@ -34,7 +34,6 @@ export default function AddWedding({
   const [halls, setHalls] = useState<
     Array<{
       companyId: string;
-      order: number;
       name: string;
       floor: number;
       size: string;
@@ -50,10 +49,10 @@ export default function AddWedding({
     people: {
       groomName: string;
       groomFather: string;
-      groomMothrt: string;
+      groomMother: string;
       brideName: string;
       brideFather: string;
-      brideMothrt: string;
+      brideMother: string;
     };
   }>({
     date: dayjs(`${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`),
@@ -63,17 +62,17 @@ export default function AddWedding({
     people: {
       groomName: "",
       groomFather: "",
-      groomMothrt: "",
+      groomMother: "",
       brideName: "",
       brideFather: "",
-      brideMothrt: "",
+      brideMother: "",
     },
   });
 
   useEffect(() => {
     if (company != undefined) {
       const list = company.map((it) => {
-        return { companyName: it.name, companyId: it.id };
+        return { companyName: it.name, companyId: it._id };
       });
       setCompanyList(list);
     }
@@ -91,7 +90,7 @@ export default function AddWedding({
   useEffect(() => {
     if (data.company !== "") {
       const hallValue = company.filter((it) => {
-        return it.id === data.company;
+        return it._id === data.company;
       });
       const hallList: Array<{
         companyId: string;
@@ -100,7 +99,7 @@ export default function AddWedding({
         floor: number;
         size: string;
       }> = [];
-      const companyId = hallValue[0].id;
+      const companyId = hallValue[0]._id;
       if (hallValue[0].hallList != null) {
         hallValue[0].hallList.forEach((it) => {
           hallList.push({
@@ -288,10 +287,10 @@ export default function AddWedding({
                   size="small"
                   type="string"
                   autoComplete="off"
-                  value={data.people.groomMothrt}
+                  value={data.people.groomMother}
                   onChange={(e) => {
                     const save = data.people;
-                    save.groomMothrt = e.target.value;
+                    save.groomMother = e.target.value;
 
                     setData((prevState) => ({
                       ...prevState,
@@ -440,10 +439,10 @@ export default function AddWedding({
                   size="small"
                   type="string"
                   autoComplete="off"
-                  value={data.people.brideMothrt}
+                  value={data.people.brideMother}
                   onChange={(e) => {
                     const save = data.people;
-                    save.brideMothrt = e.target.value;
+                    save.brideMother = e.target.value;
 
                     setData((prevState) => ({
                       ...prevState,
@@ -629,12 +628,6 @@ export default function AddWedding({
           <Button
             variant="contained"
             onClick={async () => {
-              const date = new Date(data.date.toDate());
-              date.setHours(Number(data.time));
-              setData((prevState) => ({
-                ...prevState,
-                date: dayjs(date),
-              }));
               const result = await (
                 await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/company/insertWedding`, {
                   method: "POST",
@@ -644,7 +637,7 @@ export default function AddWedding({
                   },
                 })
               ).json();
-              router.push(`/invitation/${result["id"]}`);
+              router.push(`/invitation/${result["_id"]}`);
             }}
           >
             등록하기

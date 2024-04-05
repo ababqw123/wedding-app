@@ -421,7 +421,6 @@ export default function Company({
                     fontSize: 15,
                   }}
                   onClick={async () => {
-                    console.log(editCompany);
                     await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/company/editCompanyInfo`, {
                       method: "PUT",
                       body: JSON.stringify(editCompany),
@@ -446,6 +445,17 @@ export default function Company({
                     "&:hover": { backgroundColor: "red" },
                     color: "white",
                     fontSize: 15,
+                  }}
+                  onClick={async () => {
+                    await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/company/delCompanyInfo`, {
+                      method: "DELETE",
+                      body: JSON.stringify(editCompany),
+                      headers: {
+                        "Content-Type": "application/json",
+                      },
+                    });
+                    refreshData();
+                    editModalClose();
                   }}
                 >
                   삭제

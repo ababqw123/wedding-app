@@ -1,6 +1,7 @@
 export interface WeddingInfo {
   _id: string;
   date: string;
+  time: number;
   people: {
     groomName: String;
     groomFather: String;
@@ -11,4 +12,5 @@ export interface WeddingInfo {
   };
   company: string;
   hall: string;
+  enabled: boolean;
 }

@@ -39,10 +39,10 @@ export default function Invitation({
     people: {
       groomName: string;
       groomFather: string;
-      groomMothrt: string;
+      groomMother: string;
       brideName: string;
       brideFather: string;
-      brideMothrt: string;
+      brideMother: string;
     };
   };
   company: {
@@ -70,10 +70,10 @@ export default function Invitation({
     people: {
       groomName: string;
       groomFather: string;
-      groomMothrt: string;
+      groomMother: string;
       brideName: string;
       brideFather: string;
-      brideMothrt: string;
+      brideMother: string;
     };
   }>({
     _id: "",
@@ -84,10 +84,10 @@ export default function Invitation({
     people: {
       groomName: "",
       groomFather: "",
-      groomMothrt: "",
+      groomMother: "",
       brideName: "",
       brideFather: "",
-      brideMothrt: "",
+      brideMother: "",
     },
   });
   const [companyData, setCompanyData] = useState<{
@@ -180,7 +180,7 @@ export default function Invitation({
             </Grid>
             <Grid>
               <Typography sx={{ fontSize: "2rem", opacity: 0.65, marginBottom: 8, whiteSpace: "pre-wrap", fontFamily: "Cute Font, sans-serif" }}>
-                {`${dayjs(data.date).format("YYYY-MM-DD hh:mm")} \n ${companyData.name} ${data.hall}`}
+                {`${dayjs(data.date).format("YYYY-MM-DD HH:mm")} \n ${companyData.name} ${data.hall}`}
               </Typography>
             </Grid>
           </Box>
@@ -245,7 +245,7 @@ export default function Invitation({
                 fontFamily: "Cute Font, sans-serif",
               }}
             >
-              {`${data.people.groomFather} · ${data.people.groomMothrt}의 아들 ${data.people.groomName}\n${data.people.brideFather} · ${data.people.brideMothrt}의 딸 ${data.people.brideName}`}
+              {`${data.people.groomFather} · ${data.people.groomMother}의 아들 ${data.people.groomName}\n${data.people.brideFather} · ${data.people.brideMother}의 딸 ${data.people.brideName}`}
             </Typography>
           </Grid>
         </Box>
@@ -498,17 +498,15 @@ export const getStaticPaths: GetStaticPaths = async (context) => {
     const possibleTokenValues: Array<string> = wedding.map((it: any) => {
       return it._id;
     }); // 가능한 토큰 값들로 대체해야 합니다.
-
     const paths = possibleTokenValues.map((token) => ({
       params: { token },
     }));
-
     return {
       paths,
       fallback: false, // fallback이 false이면 존재하지 않는 경로로의 접근은 404 페이지를 반환합니다.
     };
   } catch (error) {
-    // console.error(error);
+    console.error(error);
     return {
       paths: [],
       fallback: false,
@@ -525,7 +523,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       addr: string;
       phone: string;
       hallList: Array<{
-        order: number;
+        _id: string;
         name: string;
         floor: number;
         size: string;
@@ -540,10 +538,10 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       people: {
         groomName: string;
         groomFather: string;
-        groomMothrt: string;
+        groomMother: string;
         brideName: string;
         brideFather: string;
-        brideMothrt: string;
+        brideMother: string;
       };
     } = await (
       await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/company/findWedding`, {
@@ -555,7 +553,6 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       })
     ).json();
     const filterCompany = company.find((it) => it._id === wedding.company);
-    console.log("/////////////////////////////////////////////");
     return {
       props: {
         wedding,
@@ -563,7 +560,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       },
     };
   } catch (e) {
-    // console.log(e);
+    console.log(e);
     return {
       props: {
         value: null,

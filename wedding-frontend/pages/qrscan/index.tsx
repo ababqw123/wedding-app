@@ -13,6 +13,19 @@ export default function Qrscan() {
   const [ticketModal, setTicketModal] = useState(false);
   const [count, setCount] = useState(30);
   const [ticket, setTicket] = useState(1);
+  const [value, setValue] = useState<{
+    select: string;
+    token: string;
+    name: string;
+    phone: string;
+    money: number;
+  }>({
+    select: "",
+    token: "",
+    name: "",
+    phone: "",
+    money: 0,
+  });
 
   const paymentModalClose = () => {
     setPaymentModal(false);
@@ -33,9 +46,10 @@ export default function Qrscan() {
     ticketModalClose();
   };
 
-  const handleScan = (result: QrScanner.ScanResult) => {
+  const handleScan = async (result: QrScanner.ScanResult) => {
     if (result.data !== "") {
       const parsedData = JSON.parse(result.data);
+      setValue(parsedData);
       setPaymentModal(true);
     }
   };
@@ -121,7 +135,14 @@ export default function Qrscan() {
               >
                 <Button
                   variant="contained"
-                  onClick={() => {
+                  onClick={async () => {
+                    await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/company/saveMoney`, {
+                      method: "PUT",
+                      body: JSON.stringify(value),
+                      headers: {
+                        "Content-Type": "application/json",
+                      },
+                    });
                     setTicketModal(true);
                     paymentModalClose();
                   }}

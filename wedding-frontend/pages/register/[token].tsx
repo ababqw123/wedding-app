@@ -34,10 +34,10 @@ export default function Register({
     people: {
       groomName: string;
       groomFather: string;
-      groomMothrt: string;
+      groomMother: string;
       brideName: string;
       brideFather: string;
-      brideMothrt: string;
+      brideMother: string;
     };
   };
 }) {
@@ -234,7 +234,6 @@ export default function Register({
               <QRCode value={JSON.stringify(value)} />
             </Container>
           </Grid>
-
           <Grid>
             <Button
               autoFocus
@@ -292,10 +291,10 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       people: {
         groomName: string;
         groomFather: string;
-        groomMothrt: string;
+        groomMother: string;
         brideName: string;
         brideFather: string;
-        brideMothrt: string;
+        brideMother: string;
       };
     } = await (
       await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/company/findWedding`, {

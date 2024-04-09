@@ -1,7 +1,9 @@
 # 빌드 단계
 FROM node:18 AS build
 
-WORKDIR /app
+
+WORKDIR /usr/src/app
+#WORKDIR /app
 
 # 종속성 설치를 먼저 실행하여 캐싱을 최적화
 COPY package.json .

@@ -51,4 +51,5 @@ COPY --from=build /app .
 
 RUN yarn global add pm2
 
-CMD  ["pm2-runtime", "start", "ecosystem.config.cjs"]
+# CMD  ["pm2-runtime", "start", "ecosystem.config.cjs"]
+CMD ["pm2-runtime", "start", "ecosystem.config.cjs", "--env", "production"]

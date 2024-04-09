@@ -20,9 +20,6 @@ RUN yarn build
 # 실행 단계
 FROM nginx:1.21.4-alpine 
 
-# Nginx 설정 파일을 복사하여 요청을 적절히 처리
-COPY nginx.conf /etc/nginx/nginx.conf
-
 # 빌드 단계에서 생성된 디렉토리 복사
 COPY --from=build /app/dist /usr/share/nginx/html
 

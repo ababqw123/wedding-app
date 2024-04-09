@@ -54,6 +54,14 @@ COPY . .
 
 RUN yarn build
 
+############################
+
+FROM node:18
+
+WORKDIR /app
+
+COPY --from=build /app .
+
 RUN yarn global add pm2
 
 CMD ["pm2-runtime", "start", "ecosystem.config.cjs", "--only", "wedding-frontend"]

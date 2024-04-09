@@ -23,6 +23,9 @@ FROM nginx:1.21.4-alpine
 # 빌드 단계에서 생성된 프로덕션용 번들 복사
 COPY --from=build /app/.next /usr/share/nginx/html
 
+# custom 설정파일을 컨테이너 내부로 복사한다.
+COPY nginx/nginx.conf /etc/nginx/conf.d
+
 # Nginx에 노출할 포트 지정
 EXPOSE 80
 

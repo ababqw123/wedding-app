@@ -56,5 +56,5 @@ RUN yarn build
 
 RUN yarn global add pm2
 
-CMD ["pm2-runtime", "start", "ecosystem.config.js", "--only", "wedding-frontend"]
+CMD ["pm2-runtime", "start", "ecosystem.config.cjs", "--only", "wedding-frontend"]
 

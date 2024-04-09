@@ -47,7 +47,7 @@ COPY yarn.lock .
 RUN yarn install
 
 # 소스 코드 복사
-COPY . /app
+COPY . .
 
 # 프로덕션 빌드
 RUN yarn build

@@ -3,7 +3,7 @@ module.exports = {
     {
       // 운영 환경변수 (yarn pm2start)
       name: "wedding-frontend",
-      script: ".next/server/server.js",
+      script: "server.js",
       instances: 4,
       exec_mode: "cluster",
       max_memory_restart: "500M",

@@ -471,6 +471,7 @@ export default function Company({
 
 export const getStaticProps: GetStaticProps = async (context) => {
   try {
+    console.log(`${process.env.NEXT_PUBLIC_SERVER_URL}/company/getAllCompany`);
     const company = await (await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/company/getAllCompany`)).json();
     return {
       props: {
@@ -478,7 +479,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
       },
     };
   } catch (e) {
-    // console.log(e);
+    console.log(e);
     return {
       props: {
         value: null,

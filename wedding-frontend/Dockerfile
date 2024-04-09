@@ -60,7 +60,7 @@ FROM nginx:1.21.4-alpine
 
 COPY nginx.conf /etc/nginx/nginx.conf
 
-COPY --from=build /app/out /usr/share/nginx/html
+COPY --from=build /app/.next /usr/share/nginx/html
 
 
 # Nginx에 노출할 포트 지정

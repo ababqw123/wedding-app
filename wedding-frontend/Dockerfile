@@ -3,7 +3,6 @@ FROM node:18 AS build
 
 WORKDIR /app
 
-ENV NEXT_PUBLIC_SERVER_URL=wedding-backend
 # 종속성 설치를 먼저 실행하여 캐싱을 최적화
 COPY package.json .
 COPY yarn.lock .

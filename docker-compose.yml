@@ -1,0 +1,19 @@
+version: "1"
+services:
+  wedding-backend:
+    image: ababqw123/wedding-backend:f26b24afffae1fc12f8df0248043f3c5c7f9a4ee
+    ports:
+      - 8080:8080
+  wedding-frontend:
+    image: ababqw123/wedding-frontend:58ea25d513462af0849df218a5091b407ab48ffa
+    environment:
+      - NEXT_PUBLIC_SERVER_URL=http://wedding-backend:8080
+      - NEXT_PUBLIC_MAP_TOKEN=8591044f66278fd2484621cb7140724d
+    ports:
+      - 80:3000
+    depends_on:
+      - wedding-backend
+
+networks:
+  wedding-network:
+    driver: bridge

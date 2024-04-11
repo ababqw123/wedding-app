@@ -6,9 +6,8 @@ import {
   Param,
   Post,
   Put,
-  Query,
 } from '@nestjs/common';
-import { objectToString } from 'src/function';
+import { objectToString, stringToObject } from 'src/function';
 import { CompanyInfo } from 'src/interface/companyInfo';
 import { HallInfo } from 'src/interface/hallInfo';
 import { WeddingInfo } from 'src/interface/weddingInfo';
@@ -39,7 +38,7 @@ export class CompanyController {
 
   @Get('/findAllWeddingId')
   async getAllWeddingId() {
-    const weddingId = await this.companyService.getAllWeddingId();
+    const weddingId = await this.companyService.getAllMoneyId();
     const aes256Setting = await SetAES.setting();
     const filter: {
       weddingId: string;
@@ -60,6 +59,74 @@ export class CompanyController {
       });
     });
     return filter;
+  }
+
+  @Get('/findAllMoneyToken')
+  async getAllTokenId() {
+    const weddingId = await this.companyService.getAllMoneyId();
+    const aes256Setting = await SetAES.setting();
+    const filter: string[] = [];
+    weddingId.forEach((it) => {
+      filter.push(
+        encodeAES256(
+          objectToString({ id: it._id, key: 'groom' }),
+          aes256Setting,
+        ),
+      );
+      filter.push(
+        encodeAES256(
+          objectToString({ id: it._id, key: 'bride' }),
+          aes256Setting,
+        ),
+      );
+    });
+
+    return filter;
+  }
+
+  @Get('/congratulatoryMoney/:token')
+  async getCongratulatoryMoney(@Param('token') token: string) {
+    const aes256Setting = await SetAES.setting();
+    try {
+      const value: { id: string; key: string } = stringToObject(
+        decodeAES256(token, aes256Setting),
+      );
+      const money = await this.companyService.getFindMoneyById(value.id);
+      if (money != undefined) {
+        const wedding = await this.companyService.getFindWedding(
+          money.weddingId,
+        );
+        let participant: {
+          _id?: string;
+          name?: string;
+          phone?: string;
+          money?: number;
+        }[] = [];
+        let totalMoney: number = 0;
+        if (value.key === 'groom') {
+          participant = money.groom;
+          totalMoney = money.groomMoney;
+        } else {
+          participant = money.bride;
+          totalMoney = money.brideMoney;
+        }
+        return {
+          wedding: {
+            _id: wedding._id,
+            groomName: wedding.people.groomName,
+            brideName: wedding.people.brideName,
+          },
+          congratulatoryMoney: {
+            participant: participant,
+            total: money.totalMoney,
+          },
+        };
+      } else {
+        return false;
+      }
+    } catch (exp) {
+      return false;
+    }
   }
 
   @Post('/findWedding')

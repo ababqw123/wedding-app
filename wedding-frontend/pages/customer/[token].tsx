@@ -1,16 +1,149 @@
+import { Box, Grid, Table, TableBody, TableCell, Paper, TableContainer, TableHead, TableRow, Typography } from "@mui/material";
 import { GetStaticPaths, GetStaticProps } from "next";
+import { useEffect, useState } from "react";
 
-export default function Customer() {
-  return <>qwdqwqd</>;
+const typoHeadStyle = {
+  fontWeight: "bold",
+  overflow: "auto",
+  whiteSpace: "nowrap",
+  borderRight: "1px solid #e0e0e0",
+  backgroundColor: "#9d9696",
+};
+
+const typoBodyStyle = {
+  overflow: "auto",
+  whiteSpace: "nowrap",
+  borderRight: "1px solid #e0e0e0",
+  backgroundColor: "#c3c3c3d1",
+};
+
+export default function Customer({
+  weddingData,
+}: {
+  weddingData: {
+    wedding: {
+      _id: string;
+      groomName: string;
+      brideName: string;
+    };
+    congratulatoryMoney: {
+      participant: {
+        _id?: string;
+        name?: string;
+        phone?: string;
+        money?: number;
+      }[];
+      total: number;
+    };
+  };
+}) {
+  const [weddingPeople, setWeddingPeople] = useState<{ groom: string; bride: string }>({ groom: "", bride: "" });
+  const [participant, setParticipant] = useState<
+    {
+      _id?: string;
+      name?: string;
+      phone?: string;
+      money?: number;
+    }[]
+  >([]);
+  const [total, setTotal] = useState<number>(0);
+
+  useEffect(() => {
+    if (weddingData != undefined) {
+      setWeddingPeople({ groom: weddingData.wedding.groomName, bride: weddingData.wedding.brideName });
+      setParticipant(weddingData.congratulatoryMoney.participant);
+      setTotal(weddingData.congratulatoryMoney.total);
+    }
+  }, [weddingData]);
+  return (
+    <>
+      <Grid
+        sx={{
+          backgroundColor: "#ffffff",
+          backgroundImage: 'url("https://www.transparenttextures.com/patterns/45-degree-fabric-dark.png")',
+          minHeight: "100vh",
+        }}
+      >
+        <audio autoPlay loop>
+          <source src={"../assets/song.mp3"} />
+        </audio>
+        <Box sx={{ width: "70%", overflow: "hidden", margin: "0 auto" }}>
+          <Box
+            sx={{
+              width: "100%",
+              textAlign: "center",
+              paddingTop: "42",
+              fontWeight: "500 !important",
+            }}
+          >
+            <Grid
+              sx={{
+                marginTop: 10,
+                fontSize: "2rem",
+                marginBottom: 5,
+              }}
+            >
+              {`${weddingPeople.groom} ・ ${weddingPeople.bride}의 결혼식 축의금`}
+            </Grid>
+          </Box>
+        </Box>
+        <Box>
+          <TableContainer
+            component={Paper}
+            sx={{
+              width: "80%",
+              margin: "auto",
+              border: "2px solid #e0e0e0",
+            }}
+          >
+            <Table aria-label="simple table">
+              <TableHead>
+                <TableRow>
+                  <TableCell align="center" sx={typoHeadStyle}>
+                    이름
+                  </TableCell>
+                  <TableCell align="center" sx={typoHeadStyle}>
+                    연락처
+                  </TableCell>
+                  <TableCell align="center" sx={typoHeadStyle}>
+                    축의금
+                  </TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {participant.map((it, i) => (
+                  <TableRow key={i}>
+                    <TableCell align="center" sx={typoBodyStyle}>
+                      {it.name}
+                    </TableCell>
+                    <TableCell align="center" sx={typoBodyStyle}>
+                      {it.phone}
+                    </TableCell>
+                    <TableCell align="center" sx={typoBodyStyle}>
+                      {it.money}
+                    </TableCell>
+                  </TableRow>
+                ))}
+                <TableRow>
+                  <TableCell align="center" sx={typoBodyStyle} colSpan={2}>
+                    총 금액
+                  </TableCell>
+                  <TableCell align="center" sx={typoBodyStyle}>
+                    {total}
+                  </TableCell>
+                </TableRow>
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </Box>
+      </Grid>
+    </>
+  );
 }
 export const getStaticPaths: GetStaticPaths = async (context) => {
   try {
-    const wedding = await (await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/company/findAllMoneyToken`)).json();
-    const possibleTokenValues: Array<string> = wedding.map((it: any) => {
-      return it._id;
-    }); // 가능한 토큰 값들로 대체해야 합니다.
-
-    const paths = possibleTokenValues.map((token) => ({
+    const moneyToken: string[] = await (await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/company/findAllMoneyToken`)).json();
+    const paths = moneyToken.map((token) => ({
       params: { token },
     }));
 
@@ -30,22 +163,25 @@ export const getStaticPaths: GetStaticPaths = async (context) => {
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const token = (params?.token as string) || ("" as string);
   try {
-    const company: Array<{
-      _id: string;
-      name: string;
-      addr: string;
-      phone: string;
-      hallList: Array<{
+    const weddingData: {
+      wedding: {
         _id: string;
-        name: string;
-        floor: number;
-        size: string;
-      }>;
-    }> = await (await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/company/getAllCompany`)).json();
-
+        groomName: string;
+        brideName: string;
+      };
+      congratulatoryMoney: {
+        participant: {
+          _id?: string;
+          name?: string;
+          phone?: string;
+          money?: number;
+        }[];
+        total: number;
+      };
+    } = await (await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/company/congratulatoryMoney/${encodeURIComponent(token)}`)).json();
     return {
       props: {
-        company,
+        weddingData,
       },
     };
   } catch (e) {

@@ -43,7 +43,7 @@ export class CompanyService {
     return await this.congratulatoryMoneyModel.findOne({ _id: id });
   }
 
-  async getAllWeddingId() {
+  async getAllMoneyId() {
     return await this.congratulatoryMoneyModel.find().exec();
   }
 

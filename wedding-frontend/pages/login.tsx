@@ -159,18 +159,9 @@ export default function Login() {
                       pwd: "",
                     });
                   } else {
-                    const result = await (
-                      await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/login/token`, {
-                        method: "POST",
-                        body: JSON.stringify({ token: tokenLogin }),
-                        headers: {
-                          "Content-Type": "application/json",
-                        },
-                      })
-                    ).json();
-                    console.log(result);
+                    const result = await (await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/login/token/${encodeURIComponent(tokenLogin)}`)).json();
                     if (result) {
-                      router.replace(`/customer/${tokenLogin}`);
+                      router.push(`/customer/${encodeURIComponent(tokenLogin)}`);
                     } else {
                       setOpenSnackbar(true);
                     }

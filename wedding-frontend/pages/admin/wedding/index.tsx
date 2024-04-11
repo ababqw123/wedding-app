@@ -69,6 +69,7 @@ const typoBodyStyle = {
 export default function Wedding({
   company,
   wedding,
+  weddingId,
 }: {
   company: Array<{
     _id: string;
@@ -96,6 +97,11 @@ export default function Wedding({
       brideFather: string;
       brideMother: string;
     };
+  }>;
+  weddingId: Array<{
+    weddingId: string;
+    groomId: string;
+    brideId: string;
   }>;
 }) {
   const router = useRouter();
@@ -128,6 +134,7 @@ export default function Wedding({
   >([]);
 
   const [copyId, setCopyId] = useState<string>("");
+  const [weddingLogin, setweddingLogin] = useState<{ groomId: string; brideId: string }>({ groomId: "", brideId: "" });
 
   const [openSnackbar, setOpenSnackbar] = useState(false);
   const [openSnackbarFail, setOpenSnackbarFail] = useState(false);
@@ -237,6 +244,13 @@ export default function Wedding({
                     sx={{ backgroundColor: (i + 1) % 2 !== 0 ? "#f2f2f2" : "none" }}
                     onClick={() => {
                       setCopyId(it._id);
+                      if (weddingId != undefined) {
+                        const find = weddingId.find((id) => id.weddingId === it._id);
+                        setweddingLogin({
+                          groomId: find?.groomId || "",
+                          brideId: find?.brideId || "",
+                        });
+                      }
                       setModal(true);
                     }}
                   >
@@ -244,7 +258,7 @@ export default function Wedding({
                       {i + 1}
                     </StyledTableCell>
                     <StyledTableCell align="center" sx={typoBodyStyle}>
-                      {dayjs(it.date).format("YYYY-MM-DD hh:mm")}
+                      {dayjs(it.date).format("YYYY-MM-DD HH:mm")}
                     </StyledTableCell>
                     <StyledTableCell align="center" sx={typoBodyStyle}>
                       {it.hall}
@@ -355,6 +369,49 @@ export default function Wedding({
                 수정
               </Button>
             </Box>
+            <Box sx={{ textAlign: "center", marginTop: 2 }}>
+              <Button
+                autoFocus
+                sx={{
+                  width: "45%",
+                  height: 45,
+                  backgroundColor: "black",
+                  "&:hover": { backgroundColor: "gray" },
+                  color: "white",
+                  fontSize: 15,
+                  mr: 2,
+                }}
+                onClick={() => {
+                  copyClipboard(
+                    weddingLogin.groomId,
+                    () => setOpenSnackbar(true),
+                    () => setOpenSnackbarFail(true)
+                  );
+                }}
+              >
+                신랑 ID
+              </Button>
+              <Button
+                autoFocus
+                sx={{
+                  width: "45%",
+                  height: 45,
+                  backgroundColor: "black",
+                  "&:hover": { backgroundColor: "gray" },
+                  color: "white",
+                  fontSize: 15,
+                }}
+                onClick={() => {
+                  copyClipboard(
+                    weddingLogin.brideId,
+                    () => setOpenSnackbar(true),
+                    () => setOpenSnackbarFail(true)
+                  );
+                }}
+              >
+                신부 ID
+              </Button>
+            </Box>
             <Box sx={{ marginTop: 2 }}>
               <Button
                 autoFocus
@@ -409,11 +466,13 @@ export const getStaticProps: GetStaticProps = async (context) => {
   try {
     const company = await (await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/company/getAllCompany`)).json();
     const wedding = await (await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/company/findAllWedding`)).json();
+    const weddingId = await (await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/company/findAllWeddingId`)).json();
 
     return {
       props: {
         company,
         wedding,
+        weddingId,
       },
     };
   } catch (e) {

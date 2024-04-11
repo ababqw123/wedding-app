@@ -8,9 +8,12 @@ import {
   Put,
   Query,
 } from '@nestjs/common';
+import { objectToString } from 'src/function';
 import { CompanyInfo } from 'src/interface/companyInfo';
 import { HallInfo } from 'src/interface/hallInfo';
 import { WeddingInfo } from 'src/interface/weddingInfo';
+import { decodeAES256, encodeAES256 } from 'src/secret/AES256';
+import { SetAES } from 'src/secret/AESKeySetting';
 import { CompanyService } from 'src/service/company.service';
 
 @Controller('company')
@@ -32,6 +35,31 @@ export class CompanyController {
   async getAllWedding() {
     const wedding = await this.companyService.getAllWedding();
     return wedding;
+  }
+
+  @Get('/findAllWeddingId')
+  async getAllWeddingId() {
+    const weddingId = await this.companyService.getAllWeddingId();
+    const aes256Setting = await SetAES.setting();
+    const filter: {
+      weddingId: string;
+      groomId: string;
+      brideId: string;
+    }[] = [];
+    weddingId.forEach((it) => {
+      filter.push({
+        weddingId: it.weddingId,
+        groomId: encodeAES256(
+          objectToString({ id: it._id, key: 'groom' }),
+          aes256Setting,
+        ),
+        brideId: encodeAES256(
+          objectToString({ id: it._id, key: 'bride' }),
+          aes256Setting,
+        ),
+      });
+    });
+    return filter;
   }
 
   @Post('/findWedding')

@@ -25,5 +25,6 @@ import { CongratulatoryMoneySchema } from 'src/schema/congratulatoryMoney';
   ],
   controllers: [CompanyController],
   providers: [CompanyService],
+  exports: [CompanyService],
 })
 export class CompanyModule {}

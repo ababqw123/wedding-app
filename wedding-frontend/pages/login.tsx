@@ -1,3 +1,4 @@
+import SnackBarCustom from "@/public/companent/SnackBarCustom";
 import { Box, Button, Container, Grid, Modal, Tab, Tabs, TextField, Typography } from "@mui/material";
 import { useRouter } from "next/router";
 import { useState } from "react";
@@ -26,6 +27,15 @@ export default function Login() {
     name: "",
     phone: "",
   });
+
+  const [openSnackbar, setOpenSnackbar] = useState(false);
+
+  const snackbarClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpenSnackbar(false);
+  };
 
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
     setTabValue(newValue);
@@ -134,19 +144,37 @@ export default function Login() {
               <Button
                 variant="contained"
                 onClick={async () => {
-                  // const result = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/login/signin`, {
-                  //   method: "POST",
-                  //   body: JSON.stringify(sign),
-                  //   headers: {
-                  //     "Content-Type": "application/json",
-                  //   },
-                  // });
-                  // console.log(result);
-                  router.replace("/admin/company");
-                  setLogin({
-                    id: "",
-                    pwd: "",
-                  });
+                  if (tabValue === "관리자") {
+                    // const result = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/login/signin`, {
+                    //   method: "POST",
+                    //   body: JSON.stringify(sign),
+                    //   headers: {
+                    //     "Content-Type": "application/json",
+                    //   },
+                    // });
+                    // console.log(result);
+                    router.replace("/admin/company");
+                    setLogin({
+                      id: "",
+                      pwd: "",
+                    });
+                  } else {
+                    const result = await (
+                      await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/login/token`, {
+                        method: "POST",
+                        body: JSON.stringify({ token: tokenLogin }),
+                        headers: {
+                          "Content-Type": "application/json",
+                        },
+                      })
+                    ).json();
+                    console.log(result);
+                    if (result) {
+                      router.replace(`/customer/${tokenLogin}`);
+                    } else {
+                      setOpenSnackbar(true);
+                    }
+                  }
                 }}
               >
                 로그인
@@ -299,6 +327,15 @@ export default function Login() {
           </form>
         </Box>
       </Modal>
+
+      <SnackBarCustom
+        open={openSnackbar}
+        close={snackbarClose}
+        openTime={2000}
+        severity="warning"
+        backgroundColor={"red"}
+        message="ID를 다시 확인해주세요."
+      />
     </>
   );
 }

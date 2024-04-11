@@ -5,6 +5,7 @@ const people = new mongoose.Schema({
   name: { type: String, required: true },
   phone: { type: String, required: false },
   money: { type: Number, required: true },
+  ticket: { type: Number, required: true },
 });
 
 export const CongratulatoryMoneySchema = new mongoose.Schema(

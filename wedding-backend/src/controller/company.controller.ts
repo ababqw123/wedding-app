@@ -101,6 +101,7 @@ export class CompanyController {
           name?: string;
           phone?: string;
           money?: number;
+          ticket?: number;
         }[] = [];
         let totalMoney: number = 0;
         if (value.key === 'groom') {
@@ -175,8 +176,10 @@ export class CompanyController {
       name: string;
       phone: string;
       money: number;
+      ticket: number;
     },
   ) {
+    console.log(body);
     const wedding = await this.companyService.getFindWedding(body.token);
     const congratuMoney = await this.companyService.getFindMoney(body.token);
     if (body.select === wedding.people.groomName) {
@@ -184,6 +187,7 @@ export class CompanyController {
         name: body.name,
         phone: body.phone,
         money: body.money,
+        ticket: body.ticket,
       });
       congratuMoney.groomMoney += body.money;
       congratuMoney.totalMoney += body.money;
@@ -192,6 +196,7 @@ export class CompanyController {
         name: body.name,
         phone: body.phone,
         money: body.money,
+        ticket: body.ticket,
       });
       congratuMoney.brideMoney += body.money;
       congratuMoney.totalMoney += body.money;

@@ -32,6 +32,7 @@ export default function Customer({
         name?: string;
         phone?: string;
         money?: number;
+        ticket?: number;
       }[];
       total: number;
     };
@@ -44,15 +45,21 @@ export default function Customer({
       name?: string;
       phone?: string;
       money?: number;
+      ticket?: number;
     }[]
   >([]);
   const [total, setTotal] = useState<number>(0);
+  const [totalTicket, setTotalTicket] = useState<number>(0);
 
   useEffect(() => {
     if (weddingData != undefined) {
       setWeddingPeople({ groom: weddingData.wedding.groomName, bride: weddingData.wedding.brideName });
       setParticipant(weddingData.congratulatoryMoney.participant);
       setTotal(weddingData.congratulatoryMoney.total);
+      const ticketTotal = weddingData.congratulatoryMoney.participant
+        .map((it) => it.ticket)
+        .reduce((prev, curr) => (prev != undefined ? prev : 0) + (curr != undefined ? curr : 0), 0);
+      setTotalTicket(ticketTotal || 0);
     }
   }, [weddingData]);
   return (
@@ -106,6 +113,9 @@ export default function Customer({
                     연락처
                   </TableCell>
                   <TableCell align="center" sx={typoHeadStyle}>
+                    식권 수량
+                  </TableCell>
+                  <TableCell align="center" sx={typoHeadStyle}>
                     축의금
                   </TableCell>
                 </TableRow>
@@ -120,13 +130,19 @@ export default function Customer({
                       {it.phone}
                     </TableCell>
                     <TableCell align="center" sx={typoBodyStyle}>
+                      {it.ticket}
+                    </TableCell>
+                    <TableCell align="center" sx={typoBodyStyle}>
                       {it.money}
                     </TableCell>
                   </TableRow>
                 ))}
                 <TableRow>
                   <TableCell align="center" sx={typoBodyStyle} colSpan={2}>
-                    총 금액
+                    총
+                  </TableCell>
+                  <TableCell align="center" sx={typoBodyStyle}>
+                    {totalTicket}
                   </TableCell>
                   <TableCell align="center" sx={typoBodyStyle}>
                     {total}
@@ -175,6 +191,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
           name?: string;
           phone?: string;
           money?: number;
+          ticket?: number;
         }[];
         total: number;
       };

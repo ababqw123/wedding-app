@@ -109,6 +109,7 @@ export class CompanyService {
   }
 
   async putMoney(congratulatoryMoney: CongratulatoryMoney) {
+    console.log(congratulatoryMoney);
     return await new this.congratulatoryMoneyModel(congratulatoryMoney).save();
   }
 

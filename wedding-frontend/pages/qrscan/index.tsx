@@ -12,19 +12,20 @@ export default function Qrscan() {
   const [paymentModal, setPaymentModal] = useState(false);
   const [ticketModal, setTicketModal] = useState(false);
   const [count, setCount] = useState(30);
-  const [ticket, setTicket] = useState(1);
   const [value, setValue] = useState<{
     select: string;
     token: string;
     name: string;
     phone: string;
     money: number;
+    ticket: number;
   }>({
     select: "",
     token: "",
     name: "",
     phone: "",
     money: 0,
+    ticket: 0,
   });
 
   const paymentModalClose = () => {
@@ -50,6 +51,10 @@ export default function Qrscan() {
     if (result.data !== "") {
       const parsedData = JSON.parse(result.data);
       setValue(parsedData);
+      setValue((prevState) => ({
+        ...prevState,
+        ticket: 0,
+      }));
       setPaymentModal(true);
     }
   };
@@ -136,13 +141,6 @@ export default function Qrscan() {
                 <Button
                   variant="contained"
                   onClick={async () => {
-                    await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/company/saveMoney`, {
-                      method: "PUT",
-                      body: JSON.stringify(value),
-                      headers: {
-                        "Content-Type": "application/json",
-                      },
-                    });
                     setTicketModal(true);
                     paymentModalClose();
                   }}
@@ -173,7 +171,7 @@ export default function Qrscan() {
               <Typography variant="h4">식권 발급</Typography>
             </Grid>
             <Grid mt={1}>
-              <Typography variant="h3">{ticket}</Typography>
+              <Typography variant="h3">{value.ticket}</Typography>
             </Grid>
             <Grid width={"100%"} textAlign={"center"}>
               <IconButton
@@ -182,7 +180,11 @@ export default function Qrscan() {
                 color="inherit"
                 aria-label="back"
                 onClick={() => {
-                  setTicket(ticket > 0 ? ticket - 1 : 0);
+                  setValue((prevState) => ({
+                    ...prevState,
+                    ticket: value.ticket > 0 ? value.ticket - 1 : 0,
+                  }));
+                  // setTicket(ticket > 0 ? ticket - 1 : 0);
                 }}
               >
                 <KeyboardArrowLeftIcon />
@@ -193,7 +195,11 @@ export default function Qrscan() {
                 color="inherit"
                 aria-label="back"
                 onClick={() => {
-                  setTicket(ticket + 1);
+                  setValue((prevState) => ({
+                    ...prevState,
+                    ticket: value.ticket + 1,
+                  }));
+                  // setTicket(ticket + 1);
                 }}
               >
                 <KeyboardArrowRightIcon />
@@ -202,7 +208,14 @@ export default function Qrscan() {
             <Grid width={"100%"} textAlign={"center"} marginTop={10}>
               <Button
                 variant="contained"
-                onClick={() => {
+                onClick={async () => {
+                  await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/company/saveMoney`, {
+                    method: "PUT",
+                    body: JSON.stringify(value),
+                    headers: {
+                      "Content-Type": "application/json",
+                    },
+                  });
                   setOpenSnackbar(true);
                 }}
               >
@@ -218,7 +231,7 @@ export default function Qrscan() {
         openTime={2000}
         severity="success"
         backgroundColor={"green"}
-        message={`식권 ${ticket}장을 출력합니다.`}
+        message={`식권 ${value.ticket}장을 출력합니다.`}
       />
     </>
   );

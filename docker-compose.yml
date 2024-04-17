@@ -5,7 +5,7 @@ services:
     ports:
       - 8080:8080
   wedding-frontend:
-    image: ababqw123/wedding-frontend:67a708e3836c02ef1eb11a8a22622ee12d9790b9
+    image: ababqw123/wedding-frontend:54f618b4eb8b768fb8efd228f32274bb5bda311e
     ports:
       - 80:3000
     depends_on:

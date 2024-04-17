@@ -6,6 +6,9 @@ services:
       - 8080:8080
   wedding-frontend:
     image: ababqw123/wedding-frontend:54f618b4eb8b768fb8efd228f32274bb5bda311e
+    environment:
+      - NEXT_PUBLIC_SERVER_URL=wedding-back-wedding-backend-1
+      - NEXT_PUBLIC_MAP_TOKEN=8591044f66278fd2484621cb7140724d
     ports:
       - 80:3000
     depends_on:

@@ -8,7 +8,7 @@ module.exports = {
       exec_mode: 'cluster',
       max_memory_restart: '500M',
       env: {
-        PORT: 8080,
+        PORT: 8002,
         MODE: 'production',
       },
     },

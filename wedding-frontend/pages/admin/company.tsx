@@ -447,15 +447,20 @@ export default function Company({
                     fontSize: 15,
                   }}
                   onClick={async () => {
-                    await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/company/delCompanyInfo`, {
-                      method: "DELETE",
-                      body: JSON.stringify(editCompany),
-                      headers: {
-                        "Content-Type": "application/json",
-                      },
-                    });
-                    refreshData();
-                    editModalClose();
+                    console.log(`${process.env.NEXT_PUBLIC_SERVER_URL}/company/delCompanyInfo`);
+                    try {
+                      await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/company/delCompanyInfo`, {
+                        method: "DELETE",
+                        body: JSON.stringify(editCompany),
+                        headers: {
+                          "Content-Type": "application/json",
+                        },
+                      });
+                      refreshData();
+                      editModalClose();
+                    } catch (error) {
+                      console.log(error);
+                    }
                   }}
                 >
                   삭제

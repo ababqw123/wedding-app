@@ -424,6 +424,7 @@ export default function Hall({
                   };
                   await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/company/insertHall`, {
                     method: "POST",
+                    mode: "no-cors",
                     body: JSON.stringify(sendHallData),
                     headers: {
                       "Content-Type": "application/json",
@@ -550,6 +551,7 @@ export default function Hall({
                   onClick={async () => {
                     await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/company/editHall`, {
                       method: "PUT",
+                      mode: "no-cors",
                       body: JSON.stringify(editHall),
                       headers: {
                         "Content-Type": "application/json",

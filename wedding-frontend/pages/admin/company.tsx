@@ -304,6 +304,7 @@ export default function Company({
                 onClick={async () => {
                   await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/company/saveCompanyInfo`, {
                     method: "POST",
+                    mode: "no-cors",
                     body: JSON.stringify(addCompanyData),
                     headers: {
                       "Content-Type": "application/json",
@@ -423,6 +424,7 @@ export default function Company({
                   onClick={async () => {
                     await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/company/editCompanyInfo`, {
                       method: "PUT",
+                      mode: "no-cors",
                       body: JSON.stringify(editCompany),
                       headers: {
                         "Content-Type": "application/json",

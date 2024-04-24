@@ -304,6 +304,7 @@ export default function Login() {
                 onClick={async () => {
                   const result = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/login/signup`, {
                     method: "POST",
+                    mode: "no-cors",
                     body: JSON.stringify(sign),
                     headers: {
                       "Content-Type": "application/json",

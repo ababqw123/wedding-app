@@ -299,6 +299,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     } = await (
       await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/company/findWedding`, {
         method: "POST",
+        mode: "no-cors",
         body: JSON.stringify({ id: token }),
         headers: {
           "Content-Type": "application/json",

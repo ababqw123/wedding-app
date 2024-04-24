@@ -631,6 +631,7 @@ export default function AddWedding({
               const result = await (
                 await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/company/insertWedding`, {
                   method: "POST",
+                  mode: "no-cors",
                   body: JSON.stringify(data),
                   headers: {
                     "Content-Type": "application/json",

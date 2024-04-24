@@ -211,7 +211,6 @@ export default function Qrscan() {
                 onClick={async () => {
                   await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/company/saveMoney`, {
                     method: "PUT",
-                    mode: "no-cors",
                     body: JSON.stringify(value),
                     headers: {
                       "Content-Type": "application/json",

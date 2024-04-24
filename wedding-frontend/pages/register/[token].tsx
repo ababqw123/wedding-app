@@ -259,12 +259,7 @@ export default function Register({
 
 export const getStaticPaths: GetStaticPaths = async (context) => {
   try {
-    const wedding = await (
-      await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/company/findAllWedding`, {
-        method: "GET",
-        mode: "no-cors",
-      })
-    ).json();
+    const wedding = await (await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/company/findAllWedding`)).json();
     const possibleTokenValues: Array<string> = wedding.map((it: any) => {
       return it._id;
     }); // 가능한 토큰 값들로 대체해야 합니다.
@@ -304,7 +299,6 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     } = await (
       await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/company/findWedding`, {
         method: "POST",
-        mode: "no-cors",
         body: JSON.stringify({ id: token }),
         headers: {
           "Content-Type": "application/json",

@@ -426,7 +426,6 @@ export default function Wedding({
                 onClick={async () => {
                   await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/company/delWeddingInfo`, {
                     method: "DELETE",
-                    mode: "no-cors",
                     body: JSON.stringify({ id: copyId }),
                     headers: {
                       "Content-Type": "application/json",
@@ -465,24 +464,9 @@ export default function Wedding({
 
 export const getStaticProps: GetStaticProps = async (context) => {
   try {
-    const company = await (
-      await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/company/getAllCompany`, {
-        method: "GET",
-        mode: "no-cors",
-      })
-    ).json();
-    const wedding = await (
-      await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/company/findAllWedding`, {
-        method: "GET",
-        mode: "no-cors",
-      })
-    ).json();
-    const weddingId = await (
-      await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/company/findAllWeddingId`, {
-        method: "GET",
-        mode: "no-cors",
-      })
-    ).json();
+    const company = await (await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/company/getAllCompany`)).json();
+    const wedding = await (await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/company/findAllWedding`)).json();
+    const weddingId = await (await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/company/findAllWeddingId`)).json();
 
     return {
       props: {

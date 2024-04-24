@@ -424,7 +424,6 @@ export default function Hall({
                   };
                   await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/company/insertHall`, {
                     method: "POST",
-                    mode: "no-cors",
                     body: JSON.stringify(sendHallData),
                     headers: {
                       "Content-Type": "application/json",
@@ -551,7 +550,6 @@ export default function Hall({
                   onClick={async () => {
                     await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/company/editHall`, {
                       method: "PUT",
-                      mode: "no-cors",
                       body: JSON.stringify(editHall),
                       headers: {
                         "Content-Type": "application/json",
@@ -578,7 +576,6 @@ export default function Hall({
                   onClick={async () => {
                     await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/company/delHall`, {
                       method: "DELETE",
-                      mode: "no-cors",
                       body: JSON.stringify(editHall),
                       headers: {
                         "Content-Type": "application/json",
@@ -601,12 +598,7 @@ export default function Hall({
 
 export const getStaticProps: GetStaticProps = async (context) => {
   try {
-    const company = await (
-      await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/company/getAllCompany`, {
-        method: "GET",
-        mode: "no-cors",
-      })
-    ).json();
+    const company = await (await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/company/getAllCompany`)).json();
     return {
       props: {
         company,

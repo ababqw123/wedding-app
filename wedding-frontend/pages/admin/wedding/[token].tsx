@@ -662,7 +662,6 @@ export default function EditWedding({
               const result = await (
                 await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/company/editWedding`, {
                   method: "PUT",
-                  mode: "no-cors",
                   body: JSON.stringify(data),
                   headers: {
                     "Content-Type": "application/json",
@@ -682,12 +681,7 @@ export default function EditWedding({
 
 export const getStaticPaths: GetStaticPaths = async (context) => {
   try {
-    const wedding = await (
-      await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/company/findAllWedding`, {
-        method: "GET",
-        mode: "no-cors",
-      })
-    ).json();
+    const wedding = await (await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/company/findAllWedding`)).json();
     const possibleTokenValues: Array<string> = wedding.map((it: any) => {
       return it._id;
     }); // 가능한 토큰 값들로 대체해야 합니다.
@@ -723,12 +717,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
         floor: number;
         size: string;
       }>;
-    }> = await (
-      await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/company/getAllCompany`, {
-        method: "GET",
-        mode: "no-cors",
-      })
-    ).json();
+    }> = await (await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/company/getAllCompany`)).json();
     const wedding: {
       _id: string;
       date: Dayjs;
@@ -746,7 +735,6 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     } = await (
       await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/company/findWedding`, {
         method: "POST",
-        mode: "no-cors",
         body: JSON.stringify({ id: token }),
         headers: {
           "Content-Type": "application/json",

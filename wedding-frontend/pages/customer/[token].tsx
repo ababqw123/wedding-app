@@ -158,7 +158,12 @@ export default function Customer({
 }
 export const getStaticPaths: GetStaticPaths = async (context) => {
   try {
-    const moneyToken: string[] = await (await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/company/findAllMoneyToken`)).json();
+    const moneyToken: string[] = await (
+      await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/company/findAllMoneyToken`, {
+        method: "GET",
+        mode: "no-cors",
+      })
+    ).json();
     const paths = moneyToken.map((token) => ({
       params: { token },
     }));
@@ -195,7 +200,12 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
         }[];
         total: number;
       };
-    } = await (await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/company/congratulatoryMoney/${encodeURIComponent(token)}`)).json();
+    } = await (
+      await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/company/congratulatoryMoney/${encodeURIComponent(token)}`, {
+        method: "GET",
+        mode: "no-cors",
+      })
+    ).json();
     return {
       props: {
         weddingData,

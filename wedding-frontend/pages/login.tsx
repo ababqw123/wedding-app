@@ -159,7 +159,12 @@ export default function Login() {
                       pwd: "",
                     });
                   } else {
-                    const result = await (await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/login/token/${encodeURIComponent(tokenLogin)}`)).json();
+                    const result = await (
+                      await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/login/token/${encodeURIComponent(tokenLogin)}`, {
+                        method: "GET",
+                        mode: "no-cors",
+                      })
+                    ).json();
                     if (result) {
                       router.push(`/customer/${encodeURIComponent(tokenLogin)}`);
                     } else {

@@ -6,17 +6,18 @@ services:
     container_name: wedding-backend
     ports:
       - 8002:8002
+    networks:
+      - wedding-network      
   wedding-frontend:
-    image: ababqw123/wedding-frontend:31f599b05a50102fe3d051cad34d212be6fc87c9
-    environment:
-      - NEXT_PUBLIC_SERVER_URL=wedding-backend
-      - NEXT_PUBLIC_MAP_TOKEN=8591044f66278fd2484621cb7140724d
+    image: ababqw123/wedding-frontend:1a768efcf4e38b2886032149dfd11a1b5c644555
     hostname: wedding-frontend
     container_name: wedding-frontend
     ports:
       - 8001:3000
     depends_on:
       - wedding-backend
+    networks:
+      - wedding-network
 
 networks:
   wedding-network:

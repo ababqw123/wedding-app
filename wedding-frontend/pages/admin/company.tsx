@@ -447,7 +447,6 @@ export default function Company({
                     fontSize: 15,
                   }}
                   onClick={async () => {
-                    console.log(`${process.env.NEXT_PUBLIC_SERVER_URL}/company/delCompanyInfo`);
                     try {
                       await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/company/delCompanyInfo`, {
                         method: "DELETE",
@@ -476,9 +475,7 @@ export default function Company({
 
 export const getStaticProps: GetStaticProps = async (context) => {
   try {
-    console.log(`${process.env.NEXT_PUBLIC_SERVER_URL}/company/getAllCompany`);
     const company = await (await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/company/getAllCompany`)).json();
-    console.log(company);
     return {
       props: {
         company,

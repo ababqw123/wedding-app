@@ -2,6 +2,8 @@ import { CssBaseline } from "@mui/material";
 import type { AppProps } from "next/app";
 import Head from "next/head";
 
+export const dynamic = "force-dynamic"; // 추가
+
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <>

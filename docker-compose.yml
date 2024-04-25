@@ -1,13 +1,13 @@
 version: "1"
 services:
   wedding-backend:
-    image: ababqw123/wedding-backend:8f671b5d0ec9d472dcb0222a32bbe328de48cf21
+    image: ababqw123/wedding-backend:29f52d6bec717f8b9f84a86f11f099b46a680031
     hostname: wedding-backend
     container_name: wedding-backend
     ports:
       - 8002:8002
   wedding-frontend:
-    image: ababqw123/wedding-frontend:e8aa5de96c94294dcf20f6ee4b2ec5efe5c11ad1
+    image: ababqw123/wedding-frontend:29f52d6bec717f8b9f84a86f11f099b46a680031
     environment:
       - NEXT_PUBLIC_SERVER_URL=wedding-backend
       - NEXT_PUBLIC_MAP_TOKEN=8591044f66278fd2484621cb7140724d

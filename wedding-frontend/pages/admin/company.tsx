@@ -488,7 +488,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       props: {
         value: null,
       },
-      revalidate: 20,
+      revalidate: 3,
     };
   }
 };

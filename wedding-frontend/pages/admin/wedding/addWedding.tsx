@@ -8,6 +8,8 @@ import { GetServerSideProps, GetStaticProps } from "next";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
+export const dynamic = "force-static";
+
 export default function AddWedding({
   company,
 }: {

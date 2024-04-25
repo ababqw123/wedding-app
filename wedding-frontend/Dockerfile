@@ -45,7 +45,5 @@ WORKDIR /app
 # 필요한 파일 복사
 COPY --from=build /app .
 
-EXPOSE 80
-
 # Nginx 실행
 CMD ["yarn", "start"]

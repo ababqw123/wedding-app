@@ -124,22 +124,9 @@ export default function Company({
     setModal(false);
   };
 
-  // const refreshData = () => {
-  //   router.reload();
-  // };
-
   const editModalClose = () => {
     setEditModal(false);
   };
-
-  // const reFetchCompany = async () => {
-  //   const refreshCompany = await (
-  //     await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/company/getAllCompany`, {
-  //       cache: "no-store",
-  //     })
-  //   ).json();
-  //   setCompanyData(refreshCompany || []);
-  // };
 
   return (
     <>
@@ -318,7 +305,6 @@ export default function Company({
                       "Content-Type": "application/json",
                     },
                   });
-                  // reFetchCompany();
                   router.reload();
                   modalClose();
                 }}
@@ -438,7 +424,7 @@ export default function Company({
                         "Content-Type": "application/json",
                       },
                     });
-                    // reFetchCompany();
+                    router.reload();
                     editModalClose();
                   }}
                 >
@@ -465,7 +451,7 @@ export default function Company({
                           "Content-Type": "application/json",
                         },
                       });
-                      // reFetchCompany();
+                      router.reload();
                       editModalClose();
                     } catch (error) {
                       console.log(error);

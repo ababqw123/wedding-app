@@ -187,52 +187,6 @@ export default function Hall({
     setEditModal(false);
   };
 
-  // const refreshData = () => {
-  //   router.replace(router.asPath);
-  // };
-
-  const refreshFetchHall = async () => {
-    const refreshCompany: Array<{
-      _id: string;
-      name: string;
-      addr: string;
-      phone: string;
-      hallList: Array<{
-        _id: string;
-        name: string;
-        floor: number;
-        size: string;
-      }>;
-    }> = await (await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/company/getAllCompany`)).json();
-    if (companySelect !== "") {
-      const hallValue = refreshCompany.filter((it) => {
-        return it.name === companySelect;
-      });
-      const hallList: Array<{
-        companyId: string;
-        _id: string;
-        name: string;
-        floor: number;
-        size: string;
-      }> = [];
-      const companyId = hallValue[0]._id;
-      if (hallValue[0].hallList != null) {
-        hallValue[0].hallList.forEach((it) => {
-          hallList.push({
-            companyId: companyId,
-            _id: it._id,
-            name: it.name,
-            floor: it.floor,
-            size: it.size,
-          });
-        });
-        setHalls(hallList);
-      } else {
-        setHalls([]);
-      }
-    }
-  };
-
   const handleChange = (event: SelectChangeEvent) => {
     setCompanySelect(event.target.value as string);
   };
@@ -472,7 +426,7 @@ export default function Hall({
                       "Content-Type": "application/json",
                     },
                   });
-                  refreshFetchHall();
+                  router.reload();
                   modalClose();
                 }}
               >
@@ -598,7 +552,7 @@ export default function Hall({
                         "Content-Type": "application/json",
                       },
                     });
-                    refreshFetchHall();
+                    router.reload();
                     editModalClose();
                   }}
                 >
@@ -624,7 +578,7 @@ export default function Hall({
                         "Content-Type": "application/json",
                       },
                     });
-                    refreshFetchHall();
+                    router.reload();
                     editModalClose();
                   }}
                 >

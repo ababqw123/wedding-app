@@ -637,6 +637,7 @@ export default function AddWedding({
                   },
                 })
               ).json();
+              router.reload();
               router.push(`/admin/wedding`);
             }}
           >

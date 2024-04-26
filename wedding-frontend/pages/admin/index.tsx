@@ -25,7 +25,6 @@ import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
-
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
     backgroundColor: theme.palette.common.black,
@@ -187,8 +186,50 @@ export default function Hall({
     setEditModal(false);
   };
 
-  const refreshData = () => {
-    router.replace(router.asPath);
+  // const refreshData = () => {
+  //   router.replace(router.asPath);
+  // };
+
+  const refreshFetchHall = async () => {
+    const refreshCompany: Array<{
+      _id: string;
+      name: string;
+      addr: string;
+      phone: string;
+      hallList: Array<{
+        _id: string;
+        name: string;
+        floor: number;
+        size: string;
+      }>;
+    }> = await (await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/company/getAllCompany`)).json();
+    if (companySelect !== "") {
+      const hallValue = refreshCompany.filter((it) => {
+        return it.name === companySelect;
+      });
+      const hallList: Array<{
+        companyId: string;
+        _id: string;
+        name: string;
+        floor: number;
+        size: string;
+      }> = [];
+      const companyId = hallValue[0]._id;
+      if (hallValue[0].hallList != null) {
+        hallValue[0].hallList.forEach((it) => {
+          hallList.push({
+            companyId: companyId,
+            _id: it._id,
+            name: it.name,
+            floor: it.floor,
+            size: it.size,
+          });
+        });
+        setHalls(hallList);
+      } else {
+        setHalls([]);
+      }
+    }
   };
 
   const handleChange = (event: SelectChangeEvent) => {
@@ -430,7 +471,7 @@ export default function Hall({
                       "Content-Type": "application/json",
                     },
                   });
-                  refreshData();
+                  refreshFetchHall();
                   modalClose();
                 }}
               >
@@ -556,7 +597,7 @@ export default function Hall({
                         "Content-Type": "application/json",
                       },
                     });
-                    refreshData();
+                    refreshFetchHall();
                     editModalClose();
                   }}
                 >
@@ -582,7 +623,7 @@ export default function Hall({
                         "Content-Type": "application/json",
                       },
                     });
-                    refreshData();
+                    refreshFetchHall();
                     editModalClose();
                   }}
                 >

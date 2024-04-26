@@ -133,8 +133,8 @@ export default function Company({
   };
 
   const reFetchCompany = async () => {
-    const company = await (await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/company/getAllCompany`)).json();
-    setCompanyData(company || []);
+    const refreshCompany = await (await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/company/getAllCompany`)).json();
+    setCompanyData(refreshCompany || []);
   };
 
   return (

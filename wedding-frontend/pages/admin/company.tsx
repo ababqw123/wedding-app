@@ -126,7 +126,7 @@ export default function Company({
   };
 
   const refreshData = () => {
-    router.replace(router.asPath);
+    router.reload();
   };
 
   const editModalClose = () => {

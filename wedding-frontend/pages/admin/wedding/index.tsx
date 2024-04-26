@@ -26,6 +26,7 @@ import dayjs, { Dayjs } from "dayjs";
 import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import utc from "dayjs/plugin/utc";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -258,7 +259,7 @@ export default function Wedding({
                       {i + 1}
                     </StyledTableCell>
                     <StyledTableCell align="center" sx={typoBodyStyle}>
-                      {dayjs(it.date).format("YYYY-MM-DD HH:mm")}
+                      {dayjs(it.date).subtract(9, "hour").format("YYYY-MM-DD HH:mm")}
                     </StyledTableCell>
                     <StyledTableCell align="center" sx={typoBodyStyle}>
                       {it.hall}

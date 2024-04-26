@@ -179,7 +179,6 @@ export class CompanyController {
       ticket: number;
     },
   ) {
-    console.log(body);
     const wedding = await this.companyService.getFindWedding(body.token);
     const congratuMoney = await this.companyService.getFindMoney(body.token);
     if (body.select === wedding.people.groomName) {

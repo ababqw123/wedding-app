@@ -1,0 +1,24 @@
+version: "3"
+services:
+  wedding-backend:
+    image: ababqw123/wedding-backend:255c4c271ab94f1aa227a9b77288e10f2b8be69b
+    hostname: wedding-backend
+    container_name: wedding-backend
+    ports:
+      - 8002:8002
+    networks:
+      - wedding-network
+  wedding-frontend:
+    image: ababqw123/wedding-frontend:579490a7b50b5ce56b8aa4c9fbc1064573e7a86e
+    hostname: wedding-frontend
+    container_name: wedding-frontend
+    ports:
+      - 8001:3000
+    depends_on:
+      - wedding-backend
+    networks:
+      - wedding-network
+
+networks:
+  wedding-network:
+    driver: bridge

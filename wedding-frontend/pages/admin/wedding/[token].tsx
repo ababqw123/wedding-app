@@ -1,10 +1,10 @@
 import Appbar from "@/public/companent/Appbar";
-import { Button, FormControl, Grid, InputLabel, MenuItem, Select, SelectChangeEvent, TextField, Typography } from "@mui/material";
+import { Button, FormControl, Grid, InputLabel, MenuItem, Select, TextField, Typography } from "@mui/material";
 import { DatePicker } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import dayjs, { Dayjs } from "dayjs";
-import { GetServerSideProps, GetStaticPaths, GetStaticProps } from "next";
+import { GetServerSideProps, GetStaticPaths } from "next";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
@@ -680,31 +680,31 @@ export default function EditWedding({
   );
 }
 
-export const getStaticPaths: GetStaticPaths = async (context) => {
-  try {
-    const wedding = await (await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/company/findAllWedding`)).json();
-    const possibleTokenValues: Array<string> = wedding.map((it: any) => {
-      return it._id;
-    }); // 가능한 토큰 값들로 대체해야 합니다.
+// export const getStaticPaths: GetStaticPaths = async (context) => {
+//   try {
+//     const wedding = await (await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/company/findAllWedding`)).json();
+//     const possibleTokenValues: Array<string> = wedding.map((it: any) => {
+//       return it._id;
+//     }); // 가능한 토큰 값들로 대체해야 합니다.
 
-    const paths = possibleTokenValues.map((token) => ({
-      params: { token },
-    }));
+//     const paths = possibleTokenValues.map((token) => ({
+//       params: { token },
+//     }));
 
-    return {
-      paths,
-      fallback: false, // fallback이 false이면 존재하지 않는 경로로의 접근은 404 페이지를 반환합니다.
-    };
-  } catch (error) {
-    console.error(error);
-    return {
-      paths: [],
-      fallback: false,
-    };
-  }
-};
+//     return {
+//       paths,
+//       fallback: false, // fallback이 false이면 존재하지 않는 경로로의 접근은 404 페이지를 반환합니다.
+//     };
+//   } catch (error) {
+//     console.error(error);
+//     return {
+//       paths: [],
+//       fallback: false,
+//     };
+//   }
+// };
 
-export const getStaticProps: GetStaticProps = async ({ params }) => {
+export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   const token = (params?.token as string) || ("" as string);
   try {
     const company: Array<{

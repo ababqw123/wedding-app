@@ -3,9 +3,9 @@ import { Box, Button, Grid, Modal, Table, TableBody, TableCell, TableContainer, 
 import Paper from "@mui/material/Paper";
 import { tableCellClasses } from "@mui/material/TableCell";
 import { styled } from "@mui/material/styles";
+import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { GetServerSideProps, GetStaticProps } from "next";
 
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -488,7 +488,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       props: {
         value: null,
       },
-      revalidate: 3,
     };
   }
 };

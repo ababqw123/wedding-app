@@ -2,8 +2,13 @@ import Appbar from "@/public/companent/Appbar";
 import {
   Box,
   Button,
+  FormControl,
   Grid,
+  InputLabel,
+  MenuItem,
   Modal,
+  Select,
+  SelectChangeEvent,
   Table,
   TableBody,
   TableCell,
@@ -12,16 +17,11 @@ import {
   TableRow,
   TextField,
   Typography,
-  InputLabel,
-  MenuItem,
-  Select,
-  SelectChangeEvent,
-  FormControl,
 } from "@mui/material";
 import Paper from "@mui/material/Paper";
 import { tableCellClasses } from "@mui/material/TableCell";
 import { styled } from "@mui/material/styles";
-import { GetStaticProps } from "next";
+import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
@@ -597,7 +597,7 @@ export default function Hall({
   );
 }
 
-export const getStaticProps: GetStaticProps = async (context) => {
+export const getServerSideProps: GetServerSideProps = async (context) => {
   try {
     const company = await (await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/company/getAllCompany`)).json();
     return {

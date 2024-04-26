@@ -1,5 +1,5 @@
-import { Box, Grid, Table, TableBody, TableCell, Paper, TableContainer, TableHead, TableRow, Typography } from "@mui/material";
-import { GetStaticPaths, GetStaticProps } from "next";
+import { Box, Grid, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
+import { GetServerSideProps, GetStaticPaths } from "next";
 import { useEffect, useState } from "react";
 
 const typoHeadStyle = {
@@ -156,27 +156,27 @@ export default function Customer({
     </>
   );
 }
-export const getStaticPaths: GetStaticPaths = async (context) => {
-  try {
-    const moneyToken: string[] = await (await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/company/findAllMoneyToken`)).json();
-    const paths = moneyToken.map((token) => ({
-      params: { token },
-    }));
+// export const getStaticPaths: GetStaticPaths = async (context) => {
+//   try {
+//     const moneyToken: string[] = await (await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/company/findAllMoneyToken`)).json();
+//     const paths = moneyToken.map((token) => ({
+//       params: { token },
+//     }));
 
-    return {
-      paths,
-      fallback: false, // fallback이 false이면 존재하지 않는 경로로의 접근은 404 페이지를 반환합니다.
-    };
-  } catch (error) {
-    console.error(error);
-    return {
-      paths: [],
-      fallback: false,
-    };
-  }
-};
+//     return {
+//       paths,
+//       fallback: false, // fallback이 false이면 존재하지 않는 경로로의 접근은 404 페이지를 반환합니다.
+//     };
+//   } catch (error) {
+//     console.error(error);
+//     return {
+//       paths: [],
+//       fallback: false,
+//     };
+//   }
+// };
 
-export const getStaticProps: GetStaticProps = async ({ params }) => {
+export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   const token = (params?.token as string) || ("" as string);
   try {
     const weddingData: {

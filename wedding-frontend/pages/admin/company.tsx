@@ -132,14 +132,14 @@ export default function Company({
     setEditModal(false);
   };
 
-  const reFetchCompany = async () => {
-    const refreshCompany = await (
-      await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/company/getAllCompany`, {
-        cache: "no-store",
-      })
-    ).json();
-    setCompanyData(refreshCompany || []);
-  };
+  // const reFetchCompany = async () => {
+  //   const refreshCompany = await (
+  //     await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/company/getAllCompany`, {
+  //       cache: "no-store",
+  //     })
+  //   ).json();
+  //   setCompanyData(refreshCompany || []);
+  // };
 
   return (
     <>
@@ -318,7 +318,8 @@ export default function Company({
                       "Content-Type": "application/json",
                     },
                   });
-                  reFetchCompany();
+                  // reFetchCompany();
+                  router.reload();
                   modalClose();
                 }}
               >
@@ -437,7 +438,7 @@ export default function Company({
                         "Content-Type": "application/json",
                       },
                     });
-                    reFetchCompany();
+                    // reFetchCompany();
                     editModalClose();
                   }}
                 >
@@ -464,7 +465,7 @@ export default function Company({
                           "Content-Type": "application/json",
                         },
                       });
-                      reFetchCompany();
+                      // reFetchCompany();
                       editModalClose();
                     } catch (error) {
                       console.log(error);

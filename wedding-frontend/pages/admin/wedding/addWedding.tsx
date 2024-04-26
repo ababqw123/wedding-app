@@ -8,7 +8,6 @@ import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
-
 export default function AddWedding({
   company,
 }: {
@@ -638,7 +637,7 @@ export default function AddWedding({
                   },
                 })
               ).json();
-              router.push(`/invitation/${result["_id"]}`);
+              router.push(`/admin/wedding`);
             }}
           >
             등록하기

@@ -180,7 +180,7 @@ export default function Invitation({
             </Grid>
             <Grid>
               <Typography sx={{ fontSize: "2rem", opacity: 0.65, marginBottom: 8, whiteSpace: "pre-wrap", fontFamily: "Cute Font, sans-serif" }}>
-                {`${dayjs(data.date).subtract(9, "hour").format("YYYY-MM-DD HH:mm")} \n ${companyData.name} ${data.hall}`}
+                {`${dayjs(data.date).format("YYYY-MM-DD HH:mm")} \n ${companyData.name} ${data.hall}`}
               </Typography>
             </Grid>
           </Box>

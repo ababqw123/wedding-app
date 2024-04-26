@@ -259,7 +259,7 @@ export default function Wedding({
                       {i + 1}
                     </StyledTableCell>
                     <StyledTableCell align="center" sx={typoBodyStyle}>
-                      {dayjs(it.date).subtract(9, "hour").format("YYYY-MM-DD HH:mm")}
+                      {dayjs(it.date).format("YYYY-MM-DD HH:mm")}
                     </StyledTableCell>
                     <StyledTableCell align="center" sx={typoBodyStyle}>
                       {it.hall}

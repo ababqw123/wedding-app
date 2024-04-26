@@ -8,7 +8,6 @@ import { GetServerSideProps, GetStaticPaths } from "next";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
-
 export default function EditWedding({
   wedding,
   company,
@@ -669,7 +668,7 @@ export default function EditWedding({
                   },
                 })
               ).json();
-              router.push(`/invitation/${result["_id"]}`);
+              router.push(`/admin/wedding`);
             }}
           >
             수정하기

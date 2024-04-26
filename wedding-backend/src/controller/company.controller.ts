@@ -230,6 +230,9 @@ export class CompanyController {
     @Body()
     body: WeddingInfo,
   ) {
+    const date = new Date(body.date);
+    date.setHours(body.time);
+    body.date = date.toString();
     const wedding = await this.companyService.putWedding(body);
     return wedding;
   }

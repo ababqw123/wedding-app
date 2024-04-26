@@ -81,6 +81,7 @@ export default function Hall({
   }>;
 }) {
   const router = useRouter();
+
   const [companyList, setCompanyList] = useState<
     Array<{
       companyName: string;
@@ -202,7 +203,11 @@ export default function Hall({
         floor: number;
         size: string;
       }>;
-    }> = await (await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/company/getAllCompany`)).json();
+    }> = await (
+      await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/company/getAllCompany`, {
+        cache: "no-store",
+      })
+    ).json();
     if (companySelect !== "") {
       const hallValue = refreshCompany.filter((it) => {
         return it.name === companySelect;
@@ -640,7 +645,11 @@ export default function Hall({
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   try {
-    const company = await (await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/company/getAllCompany`)).json();
+    const company = await (
+      await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/company/getAllCompany`, {
+        cache: "no-store",
+      })
+    ).json();
     return {
       props: {
         company,

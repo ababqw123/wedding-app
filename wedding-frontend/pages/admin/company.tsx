@@ -7,7 +7,6 @@ import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
-
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
     backgroundColor: theme.palette.common.black,
@@ -125,12 +124,17 @@ export default function Company({
     setModal(false);
   };
 
-  const refreshData = () => {
-    router.reload();
-  };
+  // const refreshData = () => {
+  //   router.reload();
+  // };
 
   const editModalClose = () => {
     setEditModal(false);
+  };
+
+  const reFetchCompany = async () => {
+    const company = await (await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/company/getAllCompany`)).json();
+    setCompanyData(company || []);
   };
 
   return (
@@ -310,7 +314,7 @@ export default function Company({
                       "Content-Type": "application/json",
                     },
                   });
-                  refreshData();
+                  reFetchCompany();
                   modalClose();
                 }}
               >
@@ -429,7 +433,7 @@ export default function Company({
                         "Content-Type": "application/json",
                       },
                     });
-                    refreshData();
+                    reFetchCompany();
                     editModalClose();
                   }}
                 >
@@ -456,7 +460,7 @@ export default function Company({
                           "Content-Type": "application/json",
                         },
                       });
-                      refreshData();
+                      reFetchCompany();
                       editModalClose();
                     } catch (error) {
                       console.log(error);

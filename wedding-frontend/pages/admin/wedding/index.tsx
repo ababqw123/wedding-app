@@ -464,21 +464,9 @@ export default function Wedding({
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   try {
-    const company = await (
-      await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/company/getAllCompany`, {
-        cache: "no-store",
-      })
-    ).json();
-    const wedding = await (
-      await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/company/findAllWedding`, {
-        cache: "no-store",
-      })
-    ).json();
-    const weddingId = await (
-      await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/company/findAllWeddingId`, {
-        cache: "no-store",
-      })
-    ).json();
+    const company = await (await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/company/getAllCompany`)).json();
+    const wedding = await (await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/company/findAllWedding`)).json();
+    const weddingId = await (await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/company/findAllWeddingId`)).json();
 
     return {
       props: {

@@ -203,11 +203,7 @@ export default function Hall({
         floor: number;
         size: string;
       }>;
-    }> = await (
-      await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/company/getAllCompany`, {
-        cache: "no-store",
-      })
-    ).json();
+    }> = await (await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/company/getAllCompany`)).json();
     if (companySelect !== "") {
       const hallValue = refreshCompany.filter((it) => {
         return it.name === companySelect;
@@ -645,11 +641,7 @@ export default function Hall({
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   try {
-    const company = await (
-      await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/company/getAllCompany`, {
-        cache: "no-store",
-      })
-    ).json();
+    const company = await (await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/company/getAllCompany`)).json();
     return {
       props: {
         company,

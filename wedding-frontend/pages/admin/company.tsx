@@ -481,6 +481,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       props: {
         company,
       },
+      revalidate: 3,
     };
   } catch (e) {
     console.log(e);

@@ -167,8 +167,9 @@ wedding-app
 
 ## 3. 프로젝트 상세 설명
 ### 1. 관리자 페이지
-ㅁㄴㅇㅁㄴㅇ
-
+- 관리자 로그인 
+<img width="1432" alt="login" src="https://github.com/ababqw123/wedding-app/assets/96455920/79efbf7c-26a6-4911-aa75-4493e8a8169b">
+  - 관리자의 로그인 페이지로 현재 테스트용으로 사용하고 있기에 로그인 버튼만 누르면 접속하게 되어있습니다.
 
 
 

@@ -13,14 +13,16 @@
 
 <br>
 
-## 1. 개발 환경
-
+## 1. 개발 환경 및 개발 기간
+### 개발 환경
 - Front : HTML, NextJs(Typescript), MUI, PWA(앱으로 생성)
 - Back-end : NestJs(Typescript)
 - DB : MongoDB
 - 버전 및 이슈관리 : Github
 - 서비스 배포 환경 : Netlify, Oracle Cloud, Docker, Github Action
   <br>
+### 개발 기간
+- 전체 개발 기간 : 2023-12 ~ 2024-04
 
 ## 2. 프로젝트 구조
 
@@ -160,8 +162,6 @@ wedding-app
 
 ## 3. 개발 기간 및 작업 관리
 
-### 개발 기간
 
-- 전체 개발 기간 : 2023-12 ~ 2024-04
 
 <br>

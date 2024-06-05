@@ -3,6 +3,7 @@
 - 배포 URL : https://wedding-app-delta.vercel.app
 
 <br>
+<img width="1105" alt="wedding_Title" src="https://github.com/ababqw123/wedding-app/assets/96455920/82eeb5c0-f806-4329-9d8f-d9d2d1407bbb">
 
 ## 프로젝트 소개
 

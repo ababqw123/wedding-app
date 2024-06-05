@@ -193,6 +193,7 @@ wedding-app
   - 예식장의 홀을 추가/수정/삭제 할 수 있는 관리 페이지 입니다.
 
 <br>
+<br>
 
 - 예식 일정 관리
 <img width="1429" alt="wedding1" src="https://github.com/ababqw123/wedding-app/assets/96455920/457fa501-e444-48bd-a87f-36b7e899cd72">

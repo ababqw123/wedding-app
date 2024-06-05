@@ -175,6 +175,7 @@ wedding-app
   - 회원가입 및 관리자와 고객에 대한 로그인이 가능하고, 키오스크로 활용 시 사용되는 QR 코드 기능이 로그인 화면에 같이 있습니다.
 
 <br>
+
 - 예식장 관리
 <img width="1433" alt="company" src="https://github.com/ababqw123/wedding-app/assets/96455920/44471e5b-2f2a-49d9-82ef-7379376a45d6">
 <br>
@@ -183,12 +184,14 @@ wedding-app
   - 예식장을 등록하고 주소를 입력해놓으면 청첩장의 카카오맵에서 해당 지점에 대한 주소를 검색하여 지도가 출력됩니다.
 
 <br>
+
 - 홀 관리
 <img width="1434" alt="hall" src="https://github.com/ababqw123/wedding-app/assets/96455920/6dd17d4e-0126-4ffa-a235-7edce3bd326f">
 <br>
   - 예식장의 홀을 추가/수정/삭제 할 수 있는 관리 페이지 입니다.
 
 <br>
+
 - 예식 일정 관리
 <img width="1429" alt="wedding1" src="https://github.com/ababqw123/wedding-app/assets/96455920/457fa501-e444-48bd-a87f-36b7e899cd72">
 <img width="1434" alt="wedding2" src="https://github.com/ababqw123/wedding-app/assets/96455920/b4dc9db4-b859-4455-803c-7ce7ffb509a2">
@@ -199,6 +202,8 @@ wedding-app
 <br>
   - 청첩장 바로 접속 및 청첩장 url 복사, 수정 및 고객용 login id를 확인할 수 있습니다.
   (login id를 사용하여, QR코드를 사용하여 축의금을 낸 명단과 금액, 식권 수량을 파악할 수 있습니다.)
+
+<br>
 
 ### 2. 고객 페이지
 - 청첩장
@@ -211,6 +216,7 @@ wedding-app
   - 추가적인 업데이트를 통하여 소개글 및 배경색, 사진, 노래 등을 선택하여 넣을 수 있도록 기능을 추가할 예정입니다.
 
 <br>
+
 - 축의금 명단
 <img width="1280" alt="list" src="https://github.com/ababqw123/wedding-app/assets/96455920/cecc2632-5845-4060-93d7-065fbfc2144a">
 <br>
@@ -219,6 +225,8 @@ wedding-app
   - 청첩장에 있는 예비등록으로 얻은 QR코드를 키오스크에 찍으면 축의금 명단에 출력됩니다.
 <br>
   - 총 식권 수량과 축의금 금액 이름과 연락처를 알수있습니다.
+
+<br>
 
 ### 3. 하객 및 키오스크
 - 사전 등록 페이지
@@ -230,6 +238,7 @@ wedding-app
   - 정보를 입력하면 QR코드를 얻을 수 있고, 예식장에서 키오스크를 통하여 등록 및 결재가 가능합니다.
 
 <br>
+
 - 키오스크
 <img width="1143" alt="kiosk" src="https://github.com/ababqw123/wedding-app/assets/96455920/96d43eff-24ef-4cd4-830f-c8fa79bc9a23">
 <img width="1184" alt="kiosk2" src="https://github.com/ababqw123/wedding-app/assets/96455920/8ff8ab2f-1461-4473-a500-92bfaedcea50">

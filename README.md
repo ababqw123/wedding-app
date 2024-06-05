@@ -1,5 +1,6 @@
 # 예식 시스템 관리 및 키오스크 웹앱
 
+- 배포 github : https://github.com/ababqw123/wedding-app
 - 배포 URL : https://wedding-app-delta.vercel.app
 
 <br>
@@ -10,6 +11,8 @@
 - 웨딩 업체 등록부터 홀관리, 예식 일정까지 관리할 수 있는 시스템입니다.
 - 예식 일정을 등록할 경우 자동으로 모바일 청접장이 생성되고, 청첩장을 공유할 수 있습니다.
 - 모바일 청첩장에서 예비 등록을 할 시, QR코드가 생성되고 QR코드를 키오스크에 찍음으로써 편하게 결재와 식권을 받을 수 있습니다.
+- 프론트엔드는 Nextjs로 개발되어 vercel을 통해 배포하였고, 백엔드는 Oracle cloud에 docker를 설치하여 배포하였습니다.
+- main 브런치의 프론트엔드/백엔드 코드가 수정될 경우 github action을 통하여 각각의 이미지가 자동으로 docker hub에 배포됩니다.
 
 <br>
 
@@ -19,9 +22,10 @@
 - Back-end : NestJs(Typescript)
 - DB : MongoDB
 - 버전 및 이슈관리 : Github
-- 서비스 배포 환경 : Netlify, Oracle Cloud, Docker, Github Action
+- 서비스 배포 환경 : vercel, Oracle Cloud, Docker, Github Action
   <br>
-### 개발 기간
+### 개발 기간 및 개발 인원
+- 개발 인원 : 1명
 - 전체 개발 기간 : 2023-12 ~ 2024-04
 
 ## 2. 프로젝트 구조
@@ -159,9 +163,10 @@ wedding-app
    └─ yarn.lock
 
 ```
-
-## 3. 개발 기간 및 작업 관리
-
-
-
 <br>
+## 3. 프로젝트 상세 설명
+### 1. 관리자 페이지
+
+
+
+

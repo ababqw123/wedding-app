@@ -173,5 +173,65 @@ wedding-app
 <br>
   - 회원가입 및 관리자와 고객에 대한 로그인이 가능하고, 키오스크로 활용 시 사용되는 QR 코드 기능이 로그인 화면에 같이 있습니다.
 
+<br>
+- 예식장 관리
+<img width="1433" alt="company" src="https://github.com/ababqw123/wedding-app/assets/96455920/44471e5b-2f2a-49d9-82ef-7379376a45d6">
+  - 예식장을 추가/수정/삭제 할 수 있는 관리 페이지 입니다.
+<br>
+  - 예식장을 등록하고 주소를 입력해놓으면 청첩장의 카카오맵에서 해당 지점에 대한 주소를 검색하여 지도가 출력됩니다.
+
+<br>
+- 홀 관리
+<img width="1434" alt="hall" src="https://github.com/ababqw123/wedding-app/assets/96455920/6dd17d4e-0126-4ffa-a235-7edce3bd326f">
+  - 예식장의 홀을 추가/수정/삭제 할 수 있는 관리 페이지 입니다.
+
+<br>
+- 예식 일정 관리
+<img width="1429" alt="wedding1" src="https://github.com/ababqw123/wedding-app/assets/96455920/457fa501-e444-48bd-a87f-36b7e899cd72">
+<img width="1434" alt="wedding2" src="https://github.com/ababqw123/wedding-app/assets/96455920/b4dc9db4-b859-4455-803c-7ce7ffb509a2">
+  - 예식 일정을 추가/수정/삭제 할 수 있는 관리 페이지입니다.
+<br>
+  - 예식 일정을 추가하면 자동으로 청첩장이 생성됩니다.
+<br>
+  - 청첩장 바로 접속 및 청첩장 url 복사, 수정 및 고객용 login id를 확인할 수 있습니다.
+  (login id를 사용하여, QR코드를 사용하여 축의금을 낸 명단과 금액, 식권 수량을 파악할 수 있습니다.)
+
+### 2. 고객 페이지
+- 청첩장
+<img width="1433" alt="company" src="https://github.com/ababqw123/wedding-app/assets/96455920/44471e5b-2f2a-49d9-82ef-7379376a45d6">
+  - 자동으로 생성되는 청첩장 페이지입니다.
+<br>
+  - 예비 등록을 통하여 이름과 번호, 축의금 금액을 입력한 QR코드를 미리 생성할 수 있습니다.
+<br>
+  - 추가적인 업데이트를 통하여 소개글 및 배경색, 사진, 노래 등을 선택하여 넣을 수 있도록 기능을 추가할 예정입니다.
+
+<br>
+- 축의금 명단
+<img width="1280" alt="list" src="https://github.com/ababqw123/wedding-app/assets/96455920/cecc2632-5845-4060-93d7-065fbfc2144a">
+  - 로그인 페이지에서 관리자로 부터 받은 고객용 login id를 통해서 접속할 수 있습니다.
+<br>
+  - 청첩장에 있는 예비등록으로 얻은 QR코드를 키오스크에 찍으면 축의금 명단에 출력됩니다.
+<br>
+  - 총 식권 수량과 축의금 금액 이름과 연락처를 알수있습니다.
+
+### 3. 하객 및 키오스크
+- 사전 등록 페이지
+<img width="1183" alt="regist" src="https://github.com/ababqw123/wedding-app/assets/96455920/7c52f9ab-9372-4e42-9bdb-9acc0399f6f4">
+<img width="1362" alt="qr" src="https://github.com/ababqw123/wedding-app/assets/96455920/74b1e7ca-f815-45f8-9477-97f038ef5026">
+  - 청첩장에서 접속할 수 있는 사전 등록페이지 입니다.
+<br>
+  - 정보를 입력하면 QR코드를 얻을 수 있고, 예식장에서 키오스크를 통하여 등록 및 결재가 가능합니다.
+
+<br>
+- 키오스크
+<img width="1143" alt="kiosk" src="https://github.com/ababqw123/wedding-app/assets/96455920/96d43eff-24ef-4cd4-830f-c8fa79bc9a23">
+<img width="1184" alt="kiosk2" src="https://github.com/ababqw123/wedding-app/assets/96455920/8ff8ab2f-1461-4473-a500-92bfaedcea50">
+<img width="1187" alt="kiosk3" src="https://github.com/ababqw123/wedding-app/assets/96455920/3df478ea-25bc-409d-9f79-0ded56562718">
+  - 예식장에 설치될 키오스크 기능입니다.
+<br>
+  - 기존에 다운받은 QR코드를 찍으면 자동으로 결재 시스템으로 넘어가고, 결재가 승인되면 식권 발급 수량을 확인합니다.
+<br>
+  - 결재 시스템의 구현은 하지 않았고, 승인을 선택할 시 식권 발급 화면으로 넘어가집니다.
+
 
 

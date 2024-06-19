@@ -211,7 +211,7 @@ wedding-app
 
 ### 2. 고객 페이지
 - 청첩장
-<img width="1433" alt="company" src="https://github.com/ababqw123/wedding-app/assets/96455920/44471e5b-2f2a-49d9-82ef-7379376a45d6">
+<img width="1433" alt="company" src="https://github.com/ababqw123/wedding-app/assets/96455920/9f670596-f472-45ff-8b02-762b43b43ae7">
 <br>
   - 자동으로 생성되는 청첩장 페이지입니다.
 <br>

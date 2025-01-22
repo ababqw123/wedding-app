@@ -180,7 +180,7 @@ export default function Login() {
       </Container>
       <Grid width={"100%"} textAlign={"center"} mt={5}>
         <Typography variant="h5" gutterBottom>
-          이 웹 서비스는 외부 사람의 원활한 사용을 위하여 로그인 동작을 구현하지 않았습니다.
+          이 웹 서비스는 외부 사람의 원활한 사용을 위하여 로그인 동작을 구현하지 않았습니다.1111
         </Typography>
         <Typography variant="h5" gutterBottom>
           로그인을 누를 시 다음 페이지로 넘어가집니다.

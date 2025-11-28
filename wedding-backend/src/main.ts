@@ -3,7 +3,11 @@ import { AppModule } from './app.module';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  app.enableCors();
-  await app.listen(8002);
+  app.enableCors({
+    origin: 'https://wedding-app-delta.vercel.app/',
+    credentials: true,
+  });
+  const port = process.env.PORT || 8002;
+  await app.listen(port);
 }
 bootstrap();

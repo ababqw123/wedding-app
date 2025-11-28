@@ -1,4 +1,4 @@
-import {  Module, NestModule } from '@nestjs/common';
+import { Module, NestModule } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { CompanyModule } from './module/company.module';
@@ -12,7 +12,10 @@ import mongoose from 'mongoose';
     ConfigModule.forRoot({
       isGlobal: true,
     }),
-    MongooseModule.forRoot(process.env.MONGODB_URL),
+    MongooseModule.forRoot(
+      process.env.MONGODB_URL ||
+        'mongodb+srv://jay:dkswoqhdl978!@wedding.l38fry5.mongodb.net/nodb?retryWrites=true&w=majority&appName=ano',
+    ),
     CompanyModule,
     LoginModule,
   ],

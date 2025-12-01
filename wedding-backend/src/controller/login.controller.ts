@@ -25,4 +25,9 @@ export class LoginController {
       return false;
     }
   }
+
+  @Get('/health')
+  async getHealth() {
+    return true;
+  }
 }
